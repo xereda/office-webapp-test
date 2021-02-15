@@ -34,7 +34,6 @@
 import Card from '@/components/Card.vue';
 import OfficeTitle from '@/components/OfficeTitle.vue';
 import OfficeDetail from '@/components/OfficeDetail.vue';
-import OfficeForm from '@/components/OfficeForm.vue';
 
 const makeOfficesMock = () => [
   {
@@ -74,7 +73,7 @@ const makeOfficesMock = () => [
 
 export default {
   name: 'Offices',
-  components: { Card, OfficeTitle, OfficeDetail, OfficeForm },
+  components: { Card, OfficeTitle, OfficeDetail },
   data() {
     return {
       offices: makeOfficesMock(),
@@ -86,6 +85,7 @@ export default {
     onClickTitleCard(cardIndex, isOpened) {
       console.log('onClickTitleCard', cardIndex, isOpened);
       this.cardOpenedIndex = isOpened ? null : cardIndex;
+      this.formEditingIndex = null;
     },
     onEdit(officeIndex) {
       console.log('onEdit', officeIndex);
