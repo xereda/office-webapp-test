@@ -5,13 +5,22 @@
       Add New Location
     </button>
     <div v-for="office in offices" class="my-5" :key="office.index">
-      <card />
+      <card>
+        <template v-slot:title>
+          <card-office-title v-bind="{ office }" />
+        </template>
+        <template v-slot:content>
+          <card-office-content v-bind="{ office }" />
+        </template>
+      </card>
     </div>
   </section>
 </template>
 
 <script>
 import Card from '@/components/Card.vue';
+import CardOfficeTitle from '@/components/CardOfficeTitle.vue';
+import CardOfficeContent from '@/components/CardOfficeContent.vue';
 
 const makeOfficesMock = () => [
   {
@@ -51,7 +60,7 @@ const makeOfficesMock = () => [
 
 export default {
   name: 'Offices',
-  components: { Card },
+  components: { Card, CardOfficeTitle, CardOfficeContent },
   data() {
     return {
       offices: makeOfficesMock(),

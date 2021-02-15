@@ -1,13 +1,11 @@
 <template>
-  <div>
-    <strong>{{ office.title }}</strong>
-    <p class="text-gray-400">{{ office.address }}</p>
-  </div>
+  <strong>{{ office.title }}</strong>
+  <p class="text-gray-400">{{ office.address }}</p>
 </template>
 
 <script>
 export default {
-  name: 'OfficeCard',
+  name: 'CardOfficeTitle',
   props: {
     office: {
       type: Object,
