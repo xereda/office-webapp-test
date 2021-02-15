@@ -7,10 +7,10 @@
     <div v-for="office in offices" class="my-5" :key="office.index">
       <card>
         <template v-slot:title>
-          <card-office-title v-bind="{ office }" />
+          <office-title v-bind="{ office }" />
         </template>
-        <template v-slot:content>
-          <card-office-content v-bind="{ office }" />
+        <template v-slot:detail>
+          <office-detail v-bind="{ office }" />
         </template>
       </card>
     </div>
@@ -19,8 +19,8 @@
 
 <script>
 import Card from '@/components/Card.vue';
-import CardOfficeTitle from '@/components/CardOfficeTitle.vue';
-import CardOfficeContent from '@/components/CardOfficeContent.vue';
+import OfficeTitle from '@/components/OfficeTitle.vue';
+import OfficeDetail from '@/components/OfficeDetail.vue';
 
 const makeOfficesMock = () => [
   {
@@ -60,7 +60,7 @@ const makeOfficesMock = () => [
 
 export default {
   name: 'Offices',
-  components: { Card, CardOfficeTitle, CardOfficeContent },
+  components: { Card, OfficeTitle, OfficeDetail },
   data() {
     return {
       offices: makeOfficesMock(),

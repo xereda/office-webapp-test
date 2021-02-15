@@ -5,7 +5,7 @@
 
 <script>
 export default {
-  name: 'CardOfficeTitle',
+  name: 'OfficeTitle',
   props: {
     office: {
       type: Object,

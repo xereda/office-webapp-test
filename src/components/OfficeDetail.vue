@@ -17,7 +17,7 @@
 
 <script>
 export default {
-  name: 'CardOfficeContent',
+  name: 'OfficeDetail',
   props: {
     office: {
       type: Object,

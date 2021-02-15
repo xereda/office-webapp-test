@@ -7,7 +7,7 @@
     <img v-else :src="ChevronDown" class="icon" />
   </section>
   <section v-if="showContent">
-    <slot name="content" />
+    <slot name="detail" />
   </section>
 </template>
 
