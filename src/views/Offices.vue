@@ -5,12 +5,25 @@
       Add New Location
     </button>
     <div v-for="office in offices" class="my-5" :key="office.index">
-      <card>
+      <card
+        :is-opened="isCardOpen(office.index)"
+        @click="onClickTitleCard(office.index, $event)"
+      >
         <template v-slot:title>
           <office-title v-bind="{ office }" />
         </template>
         <template v-slot:detail>
-          <office-detail v-bind="{ office }" />
+          <office-form
+            v-if="isEditing(office.index)"
+            v-bind="{ office }"
+            @save="onSave"
+          />
+          <office-detail
+            v-else
+            v-bind="{ office }"
+            @edit="onEdit"
+            @remove="onRemove"
+          />
         </template>
       </card>
     </div>
@@ -21,6 +34,7 @@
 import Card from '@/components/Card.vue';
 import OfficeTitle from '@/components/OfficeTitle.vue';
 import OfficeDetail from '@/components/OfficeDetail.vue';
+import OfficeForm from '@/components/OfficeForm.vue';
 
 const makeOfficesMock = () => [
   {
@@ -60,11 +74,38 @@ const makeOfficesMock = () => [
 
 export default {
   name: 'Offices',
-  components: { Card, OfficeTitle, OfficeDetail },
+  components: { Card, OfficeTitle, OfficeDetail, OfficeForm },
   data() {
     return {
       offices: makeOfficesMock(),
+      formEditingIndex: null,
+      cardOpenedIndex: null,
     };
+  },
+  methods: {
+    onClickTitleCard(cardIndex, isOpened) {
+      console.log('onClickTitleCard', cardIndex, isOpened);
+      this.cardOpenedIndex = isOpened ? null : cardIndex;
+    },
+    onEdit(officeIndex) {
+      console.log('onEdit', officeIndex);
+      this.formEditingIndex = officeIndex;
+    },
+    onRemove(officeIndex) {
+      console.log('onRemove', officeIndex);
+      this.offices = this.offices.filter(
+        office => office.index !== officeIndex,
+      );
+    },
+    onSave() {
+      console.log('onSave');
+    },
+    isCardOpen(officeIndex) {
+      return this.cardOpenedIndex === officeIndex;
+    },
+    isEditing(officeIndex) {
+      return this.formEditingIndex === officeIndex;
+    },
   },
 };
 </script>

@@ -13,6 +13,10 @@
       {{ office.contact.phone }}
     </p>
   </div>
+  <div class="flex justify-between">
+    <button class="p-3" @click="$emit('edit', office.index)">EDIT</button>
+    <button class="p-3" @click="$emit('remove', office.index)">DELETE</button>
+  </div>
 </template>
 
 <script>
@@ -24,5 +28,6 @@ export default {
       default: () => {},
     },
   },
+  emits: ['edit', 'remove'],
 };
 </script>
