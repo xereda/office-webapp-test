@@ -2,12 +2,6 @@
   "Office": {
     "title": "string",
     "address": "string",
-    "createdAt": "date",
-    "contact": {
-      "fullName": "string",
-      "jobPosition": "string",
-      "email": "string",
-      "phone": "string"
-    }
+    "createdAt": "date"
   }
 }
