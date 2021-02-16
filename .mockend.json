@@ -1,7 +1,0 @@
-{
-  "Office": {
-    "title": "string",
-    "address": "string",
-    "createdAt": "date"
-  }
-}
