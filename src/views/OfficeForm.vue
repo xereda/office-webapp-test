@@ -1,5 +1,10 @@
 <template>
-  <header>{{ formTitle }}</header>
+  <header class="flex justify-between">
+    <div>{{ formTitle }}</div>
+    <div>
+      <button @click="onCloseForm">close</button>
+    </div>
+  </header>
   <form class="mt-6">
     <div class="my-5 text-sm">
       <field-input
@@ -104,6 +109,9 @@ export default {
     },
     onInputValue({ value, field }) {
       this.office[field] = value;
+    },
+    onCloseForm() {
+      this.$router.push({ name: 'offices' });
     },
   },
 };
