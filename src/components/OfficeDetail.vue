@@ -14,8 +14,8 @@
     </p>
   </div>
   <div class="flex justify-between">
-    <button class="p-3" @click="$emit('edit', office.index)">EDIT</button>
-    <button class="p-3" @click="$emit('remove', office.index)">DELETE</button>
+    <button class="p-3" @click="$emit('edit', office.id)">EDIT</button>
+    <button class="p-3" @click="$emit('remove', office.id)">DELETE</button>
   </div>
 </template>
 
