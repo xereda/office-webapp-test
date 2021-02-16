@@ -1,59 +1,52 @@
 <template>
   <header>{{ formTitle }}</header>
-  <form action="" class="mt-6">
+  <form class="mt-6">
     <div class="my-5 text-sm">
-      <label for="title" class="block text-black">Title *</label>
-      <input
-        v-model="office.title"
-        autofocus
-        type="text"
+      <field-input
+        label="Title"
         id="title"
-        class="rounded-sm px-4 py-3 mt-3 focus:outline-none bg-gray-100 w-full"
+        :value="office.title"
+        @input="onInputValue($event)"
       />
     </div>
     <div class="my-5 text-sm">
-      <label for="address" class="block text-black">Enter the address *</label>
-      <input
-        v-model="office.address"
-        type="text"
+      <field-input
+        label="Enter the address"
         id="address"
-        class="rounded-sm px-4 py-3 mt-3 focus:outline-none bg-gray-100 w-full"
+        :value="office.address"
+        @input="onInputValue($event)"
       />
     </div>
     <div class="my-5 text-sm">
-      <label for="fullName" class="block text-black">Full name *</label>
-      <input
-        v-model="office.fullName"
-        type="text"
+      <field-input
+        label="Full name"
         id="fullName"
-        class="rounded-sm px-4 py-3 mt-3 focus:outline-none bg-gray-100 w-full"
+        :value="office.fullName"
+        @input="onInputValue($event)"
       />
     </div>
     <div class="my-5 text-sm">
-      <label for="jobPosition" class="block text-black">Job position *</label>
-      <input
-        v-model="office.jobPosition"
-        type="text"
+      <field-input
+        label="Job position"
         id="jobPosition"
-        class="rounded-sm px-4 py-3 mt-3 focus:outline-none bg-gray-100 w-full"
+        :value="office.jobPosition"
+        @input="onInputValue($event)"
       />
     </div>
     <div class="my-5 text-sm">
-      <label for="email" class="block text-black">Email address *</label>
-      <input
-        v-model="office.email"
-        type="email"
+      <field-input
+        label="Email address"
         id="email"
-        class="rounded-sm px-4 py-3 mt-3 focus:outline-none bg-gray-100 w-full"
+        :value="office.email"
+        @input="onInputValue($event)"
       />
     </div>
     <div class="my-5 text-sm">
-      <label for="phone" class="block text-black">Phone *</label>
-      <input
-        v-model="office.phone"
-        type="text"
+      <field-input
+        label="Phone"
         id="phone"
-        class="rounded-sm px-4 py-3 mt-3 focus:outline-none bg-gray-100 w-full"
+        :value="office.phone"
+        @input="onInputValue($event)"
       />
     </div>
   </form>
@@ -69,14 +62,15 @@
 
 <script>
 import { getOneOffice, updateOffice, addOffice } from '@/services/index.js';
+import FieldInput from '@/components/FieldInput.vue';
 
 export default {
   name: 'OfficeForm',
   props: {
-    officeId: {
-      type: String,
-      required: true,
-    },
+    officeId: String,
+  },
+  components: {
+    FieldInput,
   },
   data() {
     return {
@@ -107,6 +101,9 @@ export default {
         : await addOffice(this.office);
 
       this.$router.push({ name: 'offices' });
+    },
+    onInputValue({ value, field }) {
+      this.office[field] = value;
     },
   },
 };
