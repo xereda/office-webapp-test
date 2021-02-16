@@ -5,8 +5,9 @@ import OfficeForm from '@/views/OfficeForm.vue';
 const routes = [
   {
     path: '/',
-    name: 'Offices',
+    name: 'offices',
     component: Offices,
+    props: true,
     children: [
       {
         path: 'edit/:officeId',

@@ -5,18 +5,22 @@
       Add New Location
     </button>
     <router-view />
-    <div v-for="office in offices" class="my-5" :key="office.id">
+    <div v-for="office in filteredOffices" class="my-5" :key="office.id">
       <card
         :is-opened="isCardOpen(office.id)"
         @click="onClickTitleCard(office.id, $event)"
       >
         <template v-slot:title>
-          <office-title v-bind="{ office }" />
+          <office-title :title="office.title" :address="office.address" />
         </template>
         <template v-slot:detail>
           <office-detail
             v-if="isCardOpen(office.id)"
-            v-bind="{ office }"
+            :id="office.id"
+            :full-name="office.fullName"
+            :job-position="office.jobPosition"
+            :email="office.email"
+            :phone="office.phone"
             @edit="onEdit"
             @remove="onRemove"
           />
@@ -30,29 +34,46 @@
 import Card from '@/components/Card.vue';
 import OfficeTitle from '@/components/OfficeTitle.vue';
 import OfficeDetail from '@/components/OfficeDetail.vue';
-import { makeOfficesMock } from '@/utils/index.js';
+import { getAllOffices, removeOffice } from '@/services/index.js';
 
 export default {
   name: 'Offices',
+  props: {
+    officeId: String,
+  },
   components: { Card, OfficeTitle, OfficeDetail },
   data() {
     return {
-      offices: makeOfficesMock(),
       idCardOpened: null,
+      offices: [],
     };
   },
+  created() {
+    this.loadOffices();
+  },
+  computed: {
+    filteredOffices() {
+      return this?.offices.filter(office => office.id !== this.officeId) ?? [];
+    },
+  },
   methods: {
+    async loadOffices() {
+      this.offices = await getAllOffices();
+    },
     onClickTitleCard(cardIndex, isOpened) {
       console.log('onClickTitleCard', cardIndex, isOpened);
+      this.$router.push({ name: 'offices' });
       this.idCardOpened = isOpened ? null : cardIndex;
     },
     onEdit(officeId) {
       console.log('onEdit', officeId);
+      this.idCardOpened = null;
       this.$router.push({ name: 'edit', params: { officeId } });
     },
-    onRemove(officeId) {
+    async onRemove(officeId) {
       console.log('onRemove', officeId);
-      this.offices = this.offices.filter(office => office.id !== officeId);
+      await removeOffice(officeId);
+      this.loadOffices();
     },
     onSave() {
       console.log('onSave');

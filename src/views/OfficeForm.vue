@@ -32,14 +32,35 @@
 </template>
 
 <script>
+import { getOneOffice } from '@/services/index.js';
+
 export default {
   name: 'OfficeForm',
   props: {
-    office: {
-      type: Object,
-      default: () => {},
+    officeId: {
+      type: String,
+      required: true,
     },
   },
+  data() {
+    return {
+      office: {},
+    };
+  },
   emits: ['save'],
+  created() {
+    this.loadOffice(this.officeId);
+    console.log('created', this.officeId);
+  },
+  beforeRouteUpdate({ params }, from, next) {
+    this.loadOffice(params.officeId);
+
+    next();
+  },
+  methods: {
+    async loadOffice(officeId) {
+      this.office = await getOneOffice(officeId);
+    },
+  },
 };
 </script>

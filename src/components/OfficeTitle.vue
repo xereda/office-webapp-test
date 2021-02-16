@@ -1,15 +1,19 @@
 <template>
-  <strong>{{ office.title }}</strong>
-  <p class="text-gray-400">{{ office.address }}</p>
+  <strong>{{ title }}</strong>
+  <p class="text-gray-400">{{ address }}</p>
 </template>
 
 <script>
 export default {
   name: 'OfficeTitle',
   props: {
-    office: {
-      type: Object,
-      default: () => {},
+    title: {
+      type: String,
+      default: '',
+    },
+    address: {
+      type: String,
+      default: '',
     },
   },
 };

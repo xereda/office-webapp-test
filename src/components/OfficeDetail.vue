@@ -1,21 +1,21 @@
 <template>
   <div class="text-gray-600">
     <p>
-      {{ office.contact.fullName }}
+      {{ fullName }}
     </p>
     <p>
-      {{ office.contact.jobPosition }}
+      {{ jobPosition }}
     </p>
     <p>
-      {{ office.contact.email }}
+      {{ email }}
     </p>
     <p>
-      {{ office.contact.phone }}
+      {{ phone }}
     </p>
   </div>
   <div class="flex justify-between">
-    <button class="p-3" @click="$emit('edit', office.id)">EDIT</button>
-    <button class="p-3" @click="$emit('remove', office.id)">DELETE</button>
+    <button class="p-3" @click="$emit('edit', id)">EDIT</button>
+    <button class="p-3" @click="$emit('remove', id)">DELETE</button>
   </div>
 </template>
 
@@ -23,9 +23,25 @@
 export default {
   name: 'OfficeDetail',
   props: {
-    office: {
-      type: Object,
-      default: () => {},
+    id: {
+      type: String,
+      required: true,
+    },
+    fullName: {
+      type: String,
+      default: '',
+    },
+    jobPosition: {
+      type: String,
+      default: '',
+    },
+    email: {
+      type: String,
+      default: '',
+    },
+    phone: {
+      type: String,
+      default: '',
     },
   },
   emits: ['edit', 'remove'],
