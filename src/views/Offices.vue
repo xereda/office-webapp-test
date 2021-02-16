@@ -1,7 +1,12 @@
 <template>
   <section class="m-5">
     <h1 class="text-5xl">Offices</h1>
-    <button type="submit" class="w-full my-5 bg-blue-500 p-4">
+    <button
+      v-if="showAddButton"
+      type="submit"
+      class="w-full my-5 bg-blue-500 p-4"
+      @click="onClickAddNewLocation"
+    >
       Add New Location
     </button>
     <router-view />
@@ -51,9 +56,20 @@ export default {
   created() {
     this.loadOffices();
   },
+  beforeRouteUpdate(to, from, next) {
+    this.loadOffices();
+
+    next();
+  },
   computed: {
     filteredOffices() {
       return this?.offices.filter(office => office.id !== this.officeId) ?? [];
+    },
+    isAddMode() {
+      return this.$route.name === 'add';
+    },
+    showAddButton() {
+      return !this.isAddMode;
     },
   },
   methods: {
@@ -80,6 +96,10 @@ export default {
     },
     isCardOpen(officeId) {
       return this.idCardOpened === officeId;
+    },
+    onClickAddNewLocation() {
+      this.idCardOpened = null;
+      this.$router.push({ name: 'add' });
     },
   },
 };

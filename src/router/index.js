@@ -15,6 +15,12 @@ const routes = [
         component: OfficeForm,
         props: true,
       },
+      {
+        path: 'add',
+        name: 'add',
+        component: OfficeForm,
+        props: true,
+      },
     ],
   },
 ];
