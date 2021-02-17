@@ -12,6 +12,7 @@
         id="title"
         :value="office.title"
         @input="onInputValue($event)"
+        @validation="onValidation"
       />
     </div>
     <div class="my-5 text-sm">
@@ -20,6 +21,7 @@
         id="address"
         :value="office.address"
         @input="onInputValue($event)"
+        @validation="onValidation"
       />
     </div>
     <div class="my-5 text-sm">
@@ -28,6 +30,7 @@
         id="fullName"
         :value="office.fullName"
         @input="onInputValue($event)"
+        @validation="onValidation"
       />
     </div>
     <div class="my-5 text-sm">
@@ -36,14 +39,17 @@
         id="jobPosition"
         :value="office.jobPosition"
         @input="onInputValue($event)"
+        @validation="onValidation"
       />
     </div>
     <div class="my-5 text-sm">
       <field-input
         label="Email address"
         id="email"
+        type="email"
         :value="office.email"
         @input="onInputValue($event)"
+        @validation="onValidation"
       />
     </div>
     <div class="my-5 text-sm">
@@ -52,14 +58,15 @@
         id="phone"
         :value="office.phone"
         @input="onInputValue($event)"
+        @validation="onValidation"
       />
     </div>
   </form>
   <footer class="flex justify-between">
     <button
       class="block text-center text-white bg-gray-800 p-3 duration-300 rounded-sm hover:bg-black"
-      :class="{ 'opacity-50 cursor-not-allowed': !isFormValid }"
-      :disabled="!isFormValid"
+      :class="{ 'opacity-50 cursor-not-allowed': hasError }"
+      :disabled="hasError"
       @click="onSave"
     >
       Save
@@ -82,6 +89,7 @@ export default {
   data() {
     return {
       office: {},
+      formErrors: [],
     };
   },
   created() {
@@ -97,14 +105,11 @@ export default {
     formTitle() {
       return this.office.id ? 'Edit location' : 'New location';
     },
-    isFormValid() {
-      return (
-        this.office.title &&
-        this.office.address &&
-        this.office.fullName &&
-        this.office.jobPosition &&
-        this.office.email &&
-        this.office.phone
+    hasError() {
+      const formFieldsValidationState = Object.values(this.formErrors);
+
+      return formFieldsValidationState.some(
+        formFieldState => formFieldState.hasError,
       );
     },
   },
@@ -125,6 +130,11 @@ export default {
     },
     onCloseForm() {
       this.$router.push({ name: 'offices' });
+    },
+    onValidation(fieldStateError) {
+      console.log('onValidation', fieldStateError);
+
+      this.formErrors = { ...this.formErrors, ...fieldStateError };
     },
   },
 };
