@@ -7,7 +7,7 @@
     class="border rounded-md px-4 py-3 mt-1 focus:outline-none bg-gray-100 w-full"
     :class="{ 'border-red-600': showError }"
     @input="$emit('input', { value: $event?.target?.value, field: id })"
-    @blur="onBlur"
+    @focus="setToTouchedState"
   />
   <p v-if="showError" class="block text-xs mt-1 text-red-600">
     <span v-if="isEmpty">
@@ -77,7 +77,7 @@ export default {
     },
   },
   methods: {
-    onBlur() {
+    setToTouchedState() {
       this.wasTouched = true;
     },
   },
