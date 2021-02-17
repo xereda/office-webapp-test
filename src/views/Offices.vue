@@ -1,6 +1,7 @@
 <template>
-  <section class="m-5">
-    <h1 class="text-5xl">Offices</h1>
+  <notice-bar v-if="showNoticeBar" @close="onCloseNoticeBar" />
+  <section class="block pt-28 p-10">
+    <h1 class="text-5xl text-center m-5">Offices</h1>
     <button
       v-if="showAddButton"
       type="submit"
@@ -20,7 +21,6 @@
         </template>
         <template v-slot:detail>
           <office-detail
-            v-if="isCardOpen(office.id)"
             :id="office.id"
             :full-name="office.fullName"
             :job-position="office.jobPosition"
@@ -40,16 +40,18 @@ import Card from '@/components/Card.vue';
 import OfficeTitle from '@/components/OfficeTitle.vue';
 import OfficeDetail from '@/components/OfficeDetail.vue';
 import { getAllOffices, removeOffice } from '@/services/index.js';
+import NoticeBar from '@/components/NoticeBar.vue';
 
 export default {
   name: 'Offices',
   props: {
     officeId: String,
   },
-  components: { Card, OfficeTitle, OfficeDetail },
+  components: { Card, OfficeTitle, OfficeDetail, NoticeBar },
   data() {
     return {
       idCardOpened: null,
+      showNoticeBar: false,
       offices: [],
     };
   },
@@ -90,9 +92,7 @@ export default {
       console.log('onRemove', officeId);
       await removeOffice(officeId);
       this.loadOffices();
-    },
-    onSave() {
-      console.log('onSave');
+      this.showNoticeBar = true;
     },
     isCardOpen(officeId) {
       return this.idCardOpened === officeId;
@@ -100,6 +100,10 @@ export default {
     onClickAddNewLocation() {
       this.idCardOpened = null;
       this.$router.push({ name: 'add' });
+    },
+    onCloseNoticeBar() {
+      console.log('onCloseNoticeBar');
+      this.showNoticeBar = false;
     },
   },
 };
