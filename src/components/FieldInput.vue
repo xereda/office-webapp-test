@@ -4,9 +4,13 @@
   </label>
   <input
     v-bind="{ value, type, id }"
-    class="rounded-sm px-4 py-3 mt-3 focus:outline-none bg-gray-100 w-full"
+    class="border rounded-md px-4 py-3 mt-3 focus:outline-none bg-gray-100 w-full"
+    :class="{ 'border-red-600': isEmpty }"
     @input="$emit('input', { value: $event?.target?.value, field: id })"
   />
+  <p v-if="isEmpty" class="block text-xs mt-1 text-red-600">
+    This field cannot be empty
+  </p>
 </template>
 
 <script>
@@ -23,6 +27,9 @@ export default {
   computed: {
     fieldLabel() {
       return this.required ? `${this.label} *` : this.label;
+    },
+    isEmpty() {
+      return !this.value;
     },
   },
 };

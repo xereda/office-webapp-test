@@ -58,6 +58,8 @@
   <footer class="flex justify-between">
     <button
       class="block text-center text-white bg-gray-800 p-3 duration-300 rounded-sm hover:bg-black"
+      :class="{ 'opacity-50 cursor-not-allowed': !isFormValid }"
+      :disabled="!isFormValid"
       @click="onSave"
     >
       Save
@@ -95,12 +97,23 @@ export default {
     formTitle() {
       return this.office.id ? 'Edit location' : 'New location';
     },
+    isFormValid() {
+      return (
+        this.office.title &&
+        this.office.address &&
+        this.office.fullName &&
+        this.office.jobPosition &&
+        this.office.email &&
+        this.office.phone
+      );
+    },
   },
   methods: {
     async loadOffice(officeId) {
       this.office = officeId ? await getOneOffice(officeId) : {};
     },
     async onSave() {
+      console.log('onsave');
       this.office.id
         ? await updateOffice(this.office)
         : await addOffice(this.office);
