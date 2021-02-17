@@ -96,7 +96,13 @@ export default {
     this.loadOffice(this.officeId);
     console.log('created', this.officeId);
   },
+  beforeRouteEnter(to, from, next) {
+    console.log('beforeRouteEnter');
+
+    next(vm => (vm.office = {}));
+  },
   beforeRouteUpdate({ params }, from, next) {
+    console.log('beforeRouteUpdate', params);
     this.loadOffice(params.officeId);
 
     next();

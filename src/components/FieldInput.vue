@@ -7,6 +7,7 @@
     class="border rounded-md px-4 py-3 mt-1 focus:outline-none bg-gray-100 w-full"
     :class="{ 'border-red-600': showError }"
     @input="$emit('input', { value: $event?.target?.value, field: id })"
+    @blur="setToTouchedState"
     @focus="setToTouchedState"
   />
   <p v-if="showError" class="block text-xs mt-1 text-red-600">
@@ -20,6 +21,8 @@
 </template>
 
 <script>
+const REGEX_EMAIL_VALIDATION = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
 export default {
   name: 'FieldInput',
   props: {
@@ -63,8 +66,7 @@ export default {
       return !this.value;
     },
     emailAdressIsInvalid() {
-      const regexEmailValidation = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-      return !regexEmailValidation.test(this.value);
+      return !REGEX_EMAIL_VALIDATION.test(this.value);
     },
     hasEmailError() {
       return this.type === 'email' && this.emailAdressIsInvalid;
@@ -78,7 +80,9 @@ export default {
   },
   methods: {
     setToTouchedState() {
-      this.wasTouched = true;
+      if (!this.isEmpty) {
+        this.wasTouched = true;
+      }
     },
   },
 };
