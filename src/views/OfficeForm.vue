@@ -22,7 +22,7 @@
           @validation="onValidation"
         />
       </div>
-      <div class="my-5 text-sm">
+      <div class="mt-5 mb-8 text-sm">
         <field-input
           label="Enter the address"
           id="address"
@@ -31,7 +31,10 @@
           @validation="onValidation"
         />
       </div>
-      <div class="my-5 text-sm">
+      <div class="text-xs text-dp-green border-b border-gray-200 pb-3">
+        CONTACT INFORMATION
+      </div>
+      <div class="mb-5 mt-8 text-sm">
         <field-input
           label="Full name"
           id="fullName"
