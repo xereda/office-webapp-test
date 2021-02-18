@@ -1,15 +1,14 @@
 <template>
   <notice-bar v-if="showNoticeBar" @close="onCloseNoticeBar" />
   <section class="block pt-28 p-10">
-    <page-title>Offices</page-title>
-    <button
+    <page-title class="mb-16">Offices</page-title>
+    <main-button
       v-if="showAddButton"
-      type="submit"
-      class="w-full my-5 bg-blue-500 p-4"
+      class="mb-6"
       @click="onClickAddNewLocation"
     >
       Add New Location
-    </button>
+    </main-button>
     <router-view />
     <div v-for="office in filteredOffices" class="my-5" :key="office.id">
       <card
@@ -42,6 +41,7 @@ import OfficeDetail from '@/components/OfficeDetail.vue';
 import { getAllOffices, removeOffice } from '@/services/index.js';
 import NoticeBar from '@/components/NoticeBar.vue';
 import PageTitle from '@/components/PageTitle.vue';
+import MainButton from '@/components/MainButton.vue';
 
 export default {
   name: 'Offices',
@@ -54,6 +54,7 @@ export default {
     OfficeDetail,
     OfficeTitle,
     PageTitle,
+    MainButton,
   },
   data() {
     return {
