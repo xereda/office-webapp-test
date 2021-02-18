@@ -1,6 +1,6 @@
 <template>
   <notice-bar v-if="showNoticeBar" @close="onCloseNoticeBar" />
-  <section class="block pt-28 p-10">
+  <section class="pt-28 p-10 sm:max-w-md mx-auto">
     <page-title class="mb-16">Offices</page-title>
     <main-button
       v-if="showAddButton"

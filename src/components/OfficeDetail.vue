@@ -1,21 +1,21 @@
 <template>
-  <div class="text-gray-600">
-    <p>
+  <div class="text-gray-600 bg-white pt-7 px-7 leading-9 font-light">
+    <strong class="text-xl font-semibold">
       {{ fullName }}
-    </p>
+    </strong>
     <p>
       {{ jobPosition }}
     </p>
-    <p>
+    <p class="text-dp-green">
       {{ email }}
     </p>
     <p>
       {{ phone }}
     </p>
-  </div>
-  <div class="flex justify-between">
-    <button class="p-3" @click="$emit('edit', id)">EDIT</button>
-    <button class="p-3" @click="$emit('remove', id)">DELETE</button>
+    <div class="flex justify-between border-t mt-4">
+      <button class="p-3" @click="$emit('edit', id)">EDIT</button>
+      <button class="p-3" @click="$emit('remove', id)">DELETE</button>
+    </div>
   </div>
 </template>
 

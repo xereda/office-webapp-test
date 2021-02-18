@@ -1,7 +1,7 @@
 <template>
   <section
-    class="flex justify-between items-center px-7 py-6 shadow-lg rounded-lg bg-white transition duration-500"
-    :class="{ 'bg-gray-400 opacity-70 text-white': isOpened }"
+    class="flex justify-between items-center px-7 py-6 shadow-lg rounded-lg bg-white transition-all duration-500"
+    :class="{ 'bg-gray-400 opacity-70 text-white rounded-b-none': isOpened }"
     @click="$emit('click', isOpened)"
   >
     <div class="w-full">
@@ -16,7 +16,7 @@
     </div>
   </section>
   <section
-    class="smooth-effect-closed"
+    class="smooth-effect-closed rounded-b-lg shadow-lg"
     :class="{
       'smooth-effect-opened': isOpened,
     }"

@@ -1,5 +1,5 @@
 <template>
-  <main class="h-screen w-screen bg-gray-100 min-h-screen">
+  <main class="h-full w-full bg-gray-100 min-h-screen">
     <router-view />
   </main>
 </template>
