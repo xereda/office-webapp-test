@@ -7,7 +7,7 @@
       </div>
     </div>
     <div class="w-full flex justify-end">
-      <icon-times />
+      <icon-times @click="$emit('close')" />
     </div>
   </section>
 </template>
