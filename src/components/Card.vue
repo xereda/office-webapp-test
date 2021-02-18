@@ -1,19 +1,32 @@
 <template>
-  <section class="flex justify-between items-center bg-red-100">
-    <div class="w-full" @click="$emit('click', isOpened)">
+  <section
+    class="flex justify-between items-center px-7 py-6 shadow-lg rounded-lg bg-white transition duration-500"
+    :class="{ 'bg-gray-400 opacity-70 text-white': isOpened }"
+    @click="$emit('click', isOpened)"
+  >
+    <div class="w-full">
       <slot name="title" />
     </div>
-    <img v-if="isOpened" :src="ChevronUp" class="icon" />
-    <img v-else :src="ChevronDown" class="icon" />
+    <div>
+      <svg-icon
+        class="w-7 h-7 text-gray-300 transition duration-300"
+        :class="{ 'transform rotate-180': isOpened }"
+        icon="chevronDown"
+      />
+    </div>
   </section>
-  <section v-if="isOpened">
+  <section
+    class="smooth-effect-closed"
+    :class="{
+      'smooth-effect-opened': isOpened,
+    }"
+  >
     <slot name="detail" />
   </section>
 </template>
 
 <script>
-import ChevronDown from '@/assets/icons/ChevronDown.svg';
-import ChevronUp from '@/assets/icons/ChevronUp.svg';
+import SvgIcon from '@/components/SvgIcon.vue';
 
 export default {
   name: 'Card',
@@ -23,18 +36,9 @@ export default {
       default: false,
     },
   },
-  emits: ['click'],
-  data() {
-    return {
-      ChevronDown,
-      ChevronUp,
-    };
+  components: {
+    SvgIcon,
   },
+  emits: ['click'],
 };
 </script>
-
-<style lang="scss" scoped>
-.icon {
-  width: 20px;
-}
-</style>

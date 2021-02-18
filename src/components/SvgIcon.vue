@@ -33,6 +33,8 @@ export default {
         plus: 'M12 6v6m0 0v6m0-6h6m-6 0H6',
         times: 'M6 18L18 6M6 6l12 12',
         check: 'M5 13l4 4L19 7',
+        chevronUp: 'M5 15l7-7 7 7',
+        chevronDown: 'M19 9l-7 7-7-7',
       },
     };
   },

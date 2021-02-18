@@ -1,6 +1,6 @@
 <template>
-  <strong>{{ title }}</strong>
-  <p class="text-gray-400">{{ address }}</p>
+  <strong class="text-xl leading-10">{{ title }}</strong>
+  <p class="font-light opacity-60">{{ address }}</p>
 </template>
 
 <script>

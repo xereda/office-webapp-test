@@ -6,6 +6,9 @@ module.exports = {
       colors: {
         'dp-green': '#33a6bb',
       },
+      transitionProperty: {
+        height: 'height',
+      },
     },
   },
   variants: {
