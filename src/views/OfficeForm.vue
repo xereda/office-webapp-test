@@ -1,82 +1,89 @@
 <template>
-  <header class="flex justify-between">
-    <div>{{ formTitle }}</div>
-    <div>
-      <button @click="onCloseForm">close</button>
-    </div>
-  </header>
-  <form class="mt-6">
-    <div class="my-5 text-sm">
-      <field-input
-        label="Title"
-        id="title"
-        :value="office.title"
-        @input="onInputValue"
-        @validation="onValidation"
-      />
-    </div>
-    <div class="my-5 text-sm">
-      <field-input
-        label="Enter the address"
-        id="address"
-        :value="office.address"
-        @input="onInputValue"
-        @validation="onValidation"
-      />
-    </div>
-    <div class="my-5 text-sm">
-      <field-input
-        label="Full name"
-        id="fullName"
-        :value="office.fullName"
-        @input="onInputValue"
-        @validation="onValidation"
-      />
-    </div>
-    <div class="my-5 text-sm">
-      <field-input
-        label="Job position"
-        id="jobPosition"
-        :value="office.jobPosition"
-        @input="onInputValue"
-        @validation="onValidation"
-      />
-    </div>
-    <div class="my-5 text-sm">
-      <field-input
-        label="Email address"
-        id="email"
-        type="email"
-        :value="office.email"
-        @input="onInputValue"
-        @validation="onValidation"
-      />
-    </div>
-    <div class="my-5 text-sm">
-      <field-input
-        label="Phone"
-        id="phone"
-        :value="office.phone"
-        @input="onInputValue"
-        @validation="onValidation"
-      />
-    </div>
-  </form>
-  <footer class="flex justify-between">
-    <button
-      class="block text-center text-white bg-gray-800 p-3 duration-300 rounded-sm hover:bg-black"
-      :class="{ 'opacity-30 cursor-not-allowed': hasError }"
-      :disabled="hasError"
-      @click="onSave"
-    >
-      Save
-    </button>
-  </footer>
+  <section class="bg-white p-7 shadow-lg rounded-lg">
+    <header class="flex justify-between">
+      <h1 class="font-semibold text-gray-600">{{ formTitle }}</h1>
+      <div>
+        <svg-icon
+          class="w-7 h-7 text-gray-300 cursor-pointer"
+          icon="times"
+          @click="onCloseForm"
+        />
+      </div>
+    </header>
+    <form class="mt-6">
+      <div class="my-5 text-sm">
+        <field-input
+          label="Title"
+          id="title"
+          :value="office.title"
+          @input="onInputValue"
+          @validation="onValidation"
+        />
+      </div>
+      <div class="my-5 text-sm">
+        <field-input
+          label="Enter the address"
+          id="address"
+          :value="office.address"
+          @input="onInputValue"
+          @validation="onValidation"
+        />
+      </div>
+      <div class="my-5 text-sm">
+        <field-input
+          label="Full name"
+          id="fullName"
+          :value="office.fullName"
+          @input="onInputValue"
+          @validation="onValidation"
+        />
+      </div>
+      <div class="my-5 text-sm">
+        <field-input
+          label="Job position"
+          id="jobPosition"
+          :value="office.jobPosition"
+          @input="onInputValue"
+          @validation="onValidation"
+        />
+      </div>
+      <div class="my-5 text-sm">
+        <field-input
+          label="Email address"
+          id="email"
+          type="email"
+          :value="office.email"
+          @input="onInputValue"
+          @validation="onValidation"
+        />
+      </div>
+      <div class="my-5 text-sm">
+        <field-input
+          label="Phone"
+          id="phone"
+          :value="office.phone"
+          @input="onInputValue"
+          @validation="onValidation"
+        />
+      </div>
+    </form>
+    <footer class="flex justify-between">
+      <button
+        class="block text-center text-white bg-gray-800 p-3 duration-300 rounded-sm hover:bg-black"
+        :class="{ 'opacity-30 cursor-not-allowed': hasError }"
+        :disabled="hasError"
+        @click="onSave"
+      >
+        Save
+      </button>
+    </footer>
+  </section>
 </template>
 
 <script>
 import { getOneOffice, updateOffice, addOffice } from '@/services/index.js';
 import FieldInput from '@/components/FieldInput.vue';
+import SvgIcon from '@/components/SvgIcon.vue';
 
 export default {
   name: 'OfficeForm',
@@ -85,6 +92,7 @@ export default {
   },
   components: {
     FieldInput,
+    SvgIcon,
   },
   data() {
     return {
