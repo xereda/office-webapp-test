@@ -1,7 +1,7 @@
 <template>
   <notice-bar v-if="showNoticeBar" @close="onCloseNoticeBar" />
   <section class="block pt-28 p-10">
-    <h1 class="text-5xl text-center m-5">Offices</h1>
+    <page-title>Offices</page-title>
     <button
       v-if="showAddButton"
       type="submit"
@@ -41,13 +41,20 @@ import OfficeTitle from '@/components/OfficeTitle.vue';
 import OfficeDetail from '@/components/OfficeDetail.vue';
 import { getAllOffices, removeOffice } from '@/services/index.js';
 import NoticeBar from '@/components/NoticeBar.vue';
+import PageTitle from '@/components/PageTitle.vue';
 
 export default {
   name: 'Offices',
   props: {
     officeId: String,
   },
-  components: { Card, OfficeTitle, OfficeDetail, NoticeBar },
+  components: {
+    Card,
+    NoticeBar,
+    OfficeDetail,
+    OfficeTitle,
+    PageTitle,
+  },
   data() {
     return {
       idCardOpened: null,
