@@ -8,7 +8,7 @@
     <path
       stroke-linecap="round"
       stroke-linejoin="round"
-      stroke-width="2"
+      :stroke-width="strokeWidth"
       :d="types[icon]"
     />
   </svg>
@@ -21,6 +21,10 @@ export default {
     icon: {
       type: String,
       required: true,
+    },
+    strokeWidth: {
+      type: String,
+      default: '1.5',
     },
   },
   data() {
