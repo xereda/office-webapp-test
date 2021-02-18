@@ -1,16 +1,26 @@
 <template>
-  <label :for="id" class="block text-black">
-    {{ fieldLabel }}
+  <label :for="id" class="block text-gray-500 font-light text-base">
+    {{ label }}
+    <span v-if="required" class="text-sm text-gray-300"> *</span>
   </label>
   <input
-    v-bind="{ value, type, id }"
-    class="border rounded-md px-4 py-3 mt-1 focus:outline-none bg-gray-100 w-full"
-    :class="{ 'border-red-600': showError }"
+    v-bind="{ value, type, id, placeholder }"
+    class="
+      text-base text-gray-500 font-light border border-gray-400 rounded-md bg-white shadow-sm
+      px-4 py-3 mt-1 focus:outline-none w-full placeholder-gray-300"
+    :class="{
+      'border-red-300': showError,
+      'border-gray-900': isReady,
+      'focus:border-dp-green': !showError,
+    }"
     @input="$emit('input', { value: $event?.target?.value, field: id })"
     @blur="setToTouchedState"
     @focus="setToTouchedState"
   />
-  <p v-if="showError" class="block text-xs mt-1 text-red-600">
+  <div v-if="showError" class="icon-error">
+    <svg-icon class="h-6 w-6 text-red-400" icon="exclamation-circle" />
+  </div>
+  <p v-if="showError" class="block text-xs mt-1 text-red-300">
     <span v-if="isEmpty">
       This field cannot be empty
     </span>
@@ -21,6 +31,8 @@
 </template>
 
 <script>
+import SvgIcon from '@/components/SvgIcon.vue';
+
 const REGEX_EMAIL_VALIDATION = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
 export default {
@@ -43,6 +55,13 @@ export default {
       type: Boolean,
       default: true,
     },
+    placeholder: {
+      type: String,
+      default: '',
+    },
+  },
+  components: {
+    SvgIcon,
   },
   emits: ['input', 'validation'],
   data() {
@@ -59,9 +78,6 @@ export default {
     },
   },
   computed: {
-    fieldLabel() {
-      return this.required ? `${this.label} *` : this.label;
-    },
     isEmpty() {
       return !this.value;
     },
@@ -77,6 +93,9 @@ export default {
     showError() {
       return this.wasTouched && this.hasError;
     },
+    isReady() {
+      return !this.showError && !this.isEmpty;
+    },
   },
   methods: {
     setToTouchedState() {
@@ -87,3 +106,12 @@ export default {
   },
 };
 </script>
+
+<style lang="scss" scoped>
+.icon-error {
+  position: relative;
+  float: right;
+  bottom: 36px;
+  right: 15px;
+}
+</style>

@@ -1,7 +1,9 @@
 <template>
   <section class="bg-white p-7 shadow-lg rounded-lg">
     <header class="flex justify-between">
-      <h1 class="font-semibold text-gray-600">{{ formTitle }}</h1>
+      <h1 class="font-semibold text-gray-600">
+        {{ formTitle }}
+      </h1>
       <div>
         <svg-icon
           class="w-7 h-7 text-gray-300 cursor-pointer"
@@ -52,6 +54,7 @@
           label="Email address"
           id="email"
           type="email"
+          placeholder="name@example.com"
           :value="office.email"
           @input="onInputValue"
           @validation="onValidation"
@@ -61,6 +64,7 @@
         <field-input
           label="Phone"
           id="phone"
+          placeholder="(xxx) xxx-xxxx"
           :value="office.phone"
           @input="onInputValue"
           @validation="onValidation"
