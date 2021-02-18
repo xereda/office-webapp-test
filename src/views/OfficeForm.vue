@@ -11,7 +11,7 @@
         label="Title"
         id="title"
         :value="office.title"
-        @input="onInputValue($event)"
+        @input="onInputValue"
         @validation="onValidation"
       />
     </div>
@@ -20,7 +20,7 @@
         label="Enter the address"
         id="address"
         :value="office.address"
-        @input="onInputValue($event)"
+        @input="onInputValue"
         @validation="onValidation"
       />
     </div>
@@ -29,7 +29,7 @@
         label="Full name"
         id="fullName"
         :value="office.fullName"
-        @input="onInputValue($event)"
+        @input="onInputValue"
         @validation="onValidation"
       />
     </div>
@@ -38,7 +38,7 @@
         label="Job position"
         id="jobPosition"
         :value="office.jobPosition"
-        @input="onInputValue($event)"
+        @input="onInputValue"
         @validation="onValidation"
       />
     </div>
@@ -48,7 +48,7 @@
         id="email"
         type="email"
         :value="office.email"
-        @input="onInputValue($event)"
+        @input="onInputValue"
         @validation="onValidation"
       />
     </div>
@@ -57,7 +57,7 @@
         label="Phone"
         id="phone"
         :value="office.phone"
-        @input="onInputValue($event)"
+        @input="onInputValue"
         @validation="onValidation"
       />
     </div>
