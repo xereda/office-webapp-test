@@ -1,6 +1,8 @@
 <template>
   <section>
-    <notice-bar v-if="showNoticeBar" @close="onCloseNoticeBar" />
+    <transition name="fade">
+      <notice-bar v-if="showNoticeBar" @close="onCloseNoticeBar" />
+    </transition>
     <div class="pt-28 p-10 sm:max-w-md mx-auto">
       <page-title class="mb-16">Offices</page-title>
       <main-button
@@ -15,7 +17,7 @@
         <div v-for="office in filteredOffices" class="my-5" :key="office.id">
           <card
             :is-opened="isCardOpen(office.id)"
-            @click="onClickTitleCard(office.id, $event)"
+            @click="onToggleCard(office.id, $event)"
           >
             <template v-slot:title>
               <office-title :title="office.title" :address="office.address" />
@@ -100,9 +102,8 @@ export default {
       this.offices = await getAllOffices();
       this.isLoading = false;
     },
-    onClickTitleCard(cardIndex, isOpened) {
-      console.log('onClickTitleCard', cardIndex, isOpened);
-      this.$router.push({ name: 'offices' });
+    onToggleCard(cardIndex, isOpened) {
+      console.log('onToggleCard', cardIndex, isOpened);
       this.idCardOpened = isOpened ? null : cardIndex;
     },
     onEdit(officeId) {
@@ -115,9 +116,11 @@ export default {
       this.isRemoving = true;
 
       await removeOffice(officeId);
+      this.$router.push({ name: 'offices' });
       this.loadOffices();
 
       this.showNoticeBar = true;
+      setTimeout(() => (this.showNoticeBar = false), 3000);
       this.isRemoving = false;
     },
     isCardOpen(officeId) {

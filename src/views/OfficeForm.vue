@@ -15,6 +15,7 @@
     <form class="mt-6">
       <div class="my-5 text-sm">
         <field-input
+          focus
           label="Title"
           id="title"
           :disabled="isDisabled"

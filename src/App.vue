@@ -20,4 +20,13 @@ body {
   transition: max-height 0.8s ease-in-out;
   transition-delay: 0s !important;
 }
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s ease-in-out;
+}
+.fade-enter,
+.fade-leave-to {
+  opacity: 0;
+}
 </style>

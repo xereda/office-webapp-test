@@ -13,6 +13,7 @@
       'border-gray-900': isReady,
       'focus:border-dp-green': !showError,
     }"
+    :ref="id"
     @input="onInput"
     @blur="onBlur"
   />
@@ -62,6 +63,10 @@ export default {
       type: Boolean,
       default: false,
     },
+    focus: {
+      type: Boolean,
+      default: false,
+    },
   },
   components: {
     SvgIcon,
@@ -79,6 +84,15 @@ export default {
         this.$emit('validation', { [this.id]: { hasError } });
       },
       immediate: true,
+    },
+    value: {
+      immediate: true,
+      handler() {
+        this.focus &&
+          this.$nextTick(() => {
+            this.$refs[this.id]?.focus();
+          });
+      },
     },
   },
   computed: {
