@@ -13,9 +13,8 @@
       'border-gray-900': isReady,
       'focus:border-dp-green': !showError,
     }"
-    @input="$emit('input', { value: $event?.target?.value, field: id })"
-    @blur="setToTouchedState"
-    @focus="setToTouchedState"
+    @input="onInput"
+    @blur="onBlur"
   />
   <div v-if="showError" class="icon-error">
     <svg-icon class="h-6 w-6 text-red-400" icon="exclamation-circle" />
@@ -66,7 +65,8 @@ export default {
   emits: ['input', 'validation'],
   data() {
     return {
-      wasTouched: false,
+      imputed: false,
+      blurred: false,
     };
   },
   watch: {
@@ -81,6 +81,9 @@ export default {
     isEmpty() {
       return !this.value;
     },
+    interacted() {
+      return this.imputed && this.blurred;
+    },
     emailAdressIsInvalid() {
       return !REGEX_EMAIL_VALIDATION.test(this.value);
     },
@@ -91,17 +94,20 @@ export default {
       return this.isEmpty || this.hasEmailError;
     },
     showError() {
-      return this.wasTouched && this.hasError;
+      return this.interacted && this.hasError;
     },
     isReady() {
       return !this.showError && !this.isEmpty;
     },
   },
   methods: {
-    setToTouchedState() {
-      if (!this.isEmpty) {
-        this.wasTouched = true;
-      }
+    onInput({ target }) {
+      this.imputed = true;
+
+      this.$emit('input', { value: target?.value, field: this.id });
+    },
+    onBlur() {
+      this.blurred = true;
     },
   },
 };
