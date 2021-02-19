@@ -1,11 +1,11 @@
 <template>
-  <p
-    v-bind="{ title }"
-    class="text-xl font-semibold leading-10 truncate sm:w-64"
-  >
-    {{ title }}
-  </p>
-  <p class="font-light opacity-60">{{ address }}</p>
+  <div ref="cardTitle" :style="`width: calc(${widthCard - 90}px)`">
+    {{ widthCard }}
+    <p v-bind="{ title }" class="text-xl font-semibold leading-10 truncate">
+      {{ title }}
+    </p>
+    <p class="font-light opacity-60">{{ address }}</p>
+  </div>
 </template>
 
 <script>
@@ -20,6 +20,7 @@ export default {
       type: String,
       default: '',
     },
+    widthCard: Number,
   },
 };
 </script>
