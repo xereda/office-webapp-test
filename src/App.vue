@@ -7,6 +7,7 @@
 <style lang="scss">
 body {
   width: calc(100vw - 15px);
+  background-color: #eeeeee;
 }
 
 .smooth-effect-closed {
