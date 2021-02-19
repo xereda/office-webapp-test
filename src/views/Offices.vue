@@ -1,7 +1,11 @@
 <template>
   <section>
     <transition name="fade">
-      <notice-bar v-if="showNoticeBar" @close="onCloseNoticeBar" />
+      <notice-bar
+        v-if="isNoticeBarVisible"
+        :message="noticeBarMessage"
+        @close="onCloseNoticeBar"
+      />
     </transition>
     <div class="pt-28 pl-4 max-w-sm sm:max-w-md mx-auto">
       <page-title class="mb-16">Offices</page-title>
@@ -72,7 +76,8 @@ export default {
   data() {
     return {
       idCardOpened: null,
-      showNoticeBar: false,
+      isNoticeBarVisible: false,
+      noticeBarMessage: '',
       isLoading: false,
       isRemoving: false,
       offices: [],
@@ -122,9 +127,7 @@ export default {
       await removeOffice(officeId);
       this.$router.push({ name: 'offices' });
       this.loadOffices();
-
-      this.showNoticeBar = true;
-      setTimeout(() => (this.showNoticeBar = false), 3000);
+      this.showNoticeBar('LOCATION HAS BEEN REMOVED.');
       this.isRemoving = false;
     },
     isCardOpen(officeId) {
@@ -136,7 +139,12 @@ export default {
     },
     onCloseNoticeBar() {
       console.log('onCloseNoticeBar');
-      this.showNoticeBar = false;
+      this.isNoticeBarVisible = false;
+    },
+    showNoticeBar(message) {
+      this.noticeBarMessage = message;
+      this.isNoticeBarVisible = true;
+      setTimeout(() => (this.isNoticeBarVisible = false), 3000);
     },
   },
 };
