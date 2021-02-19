@@ -1,7 +1,9 @@
 <template>
   <section
     ref="card"
-    class="w-full flex justify-between items-center px-7 py-6 shadow-lg rounded-lg bg-white transition-all duration-500 cursor-pointer"
+    class="
+      w-full flex justify-between items-center px-7 py-6 shadow-lg rounded-lg bg-white transition-all
+      duration-500 cursor-pointer"
     :class="{ 'bg-gray-400 opacity-70 text-white rounded-b-none': isOpened }"
     @click="$emit('click', isOpened)"
   >
