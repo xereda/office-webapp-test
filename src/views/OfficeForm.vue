@@ -76,7 +76,7 @@
     </form>
     <footer class="flex justify-between">
       <button
-        class="block text-center text-white bg-gray-800 p-3 duration-300 rounded-sm hover:bg-black"
+        class="block text-center text-white bg-dp-green rounded-md p-2 px-5 duration-300 transform hover:scale-110 focus:outline-none"
         :class="{ 'opacity-30 cursor-not-allowed': hasError }"
         :disabled="hasError"
         @click="onSave"

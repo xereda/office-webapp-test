@@ -1,10 +1,14 @@
 <template>
-  <main class="h-full w-full bg-gray-100 min-h-screen">
+  <main class="h-full w-full min-h-screen">
     <router-view />
   </main>
 </template>
 
 <style lang="scss">
+body {
+  width: calc(100vw - 15px);
+}
+
 .smooth-effect-closed {
   max-height: 0px;
   overflow: hidden;
