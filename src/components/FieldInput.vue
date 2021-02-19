@@ -4,10 +4,10 @@
     <span v-if="required" class="text-sm text-gray-300"> *</span>
   </label>
   <input
-    v-bind="{ value, type, id, placeholder }"
+    v-bind="{ value, type, id, placeholder, disabled }"
     class="
       text-base text-gray-500 font-light border border-gray-400 rounded-md bg-white shadow-sm
-      px-4 py-3 mt-1 focus:outline-none w-full placeholder-gray-300"
+      px-4 py-3 mt-1 focus:outline-none w-full placeholder-gray-300 disabled:opacity-40"
     :class="{
       'border-red-300': showError,
       'border-gray-900': isReady,
@@ -57,6 +57,10 @@ export default {
     placeholder: {
       type: String,
       default: '',
+    },
+    disabled: {
+      type: Boolean,
+      default: false,
     },
   },
   components: {

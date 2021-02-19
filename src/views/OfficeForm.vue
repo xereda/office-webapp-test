@@ -17,6 +17,7 @@
         <field-input
           label="Title"
           id="title"
+          :disabled="isDisabled"
           :value="office.title"
           @input="onInputValue"
           @validation="onValidation"
@@ -26,6 +27,7 @@
         <field-input
           label="Enter the address"
           id="address"
+          :disabled="isDisabled"
           :value="office.address"
           @input="onInputValue"
           @validation="onValidation"
@@ -38,6 +40,7 @@
         <field-input
           label="Full name"
           id="fullName"
+          :disabled="isDisabled"
           :value="office.fullName"
           @input="onInputValue"
           @validation="onValidation"
@@ -47,6 +50,7 @@
         <field-input
           label="Job position"
           id="jobPosition"
+          :disabled="isDisabled"
           :value="office.jobPosition"
           @input="onInputValue"
           @validation="onValidation"
@@ -58,6 +62,7 @@
           id="email"
           type="email"
           placeholder="name@example.com"
+          :disabled="isDisabled"
           :value="office.email"
           @input="onInputValue"
           @validation="onValidation"
@@ -68,21 +73,29 @@
           label="Phone"
           id="phone"
           placeholder="(xxx) xxx-xxxx"
+          :disabled="isDisabled"
           :value="office.phone"
           @input="onInputValue"
           @validation="onValidation"
         />
       </div>
     </form>
-    <footer class="flex justify-between">
+    <footer class="flex items-center">
       <button
-        class="block text-center text-white bg-dp-green rounded-md p-2 px-5 duration-300 transform hover:scale-110 focus:outline-none"
-        :class="{ 'opacity-30 cursor-not-allowed': hasError }"
-        :disabled="hasError"
+        class="
+          block text-center text-white bg-dp-green rounded-md p-2 px-5 duration-300 transform hover:scale-110
+          focus:outline-none disabled:opacity-30 disabled:cursor-not-allowed"
+        :disabled="isButtonDisabled"
         @click="onSave"
       >
         Save
       </button>
+      <div
+        v-if="isSavingData"
+        class="flex-grow text-center text-md font-light text-dp-green"
+      >
+        Saving data...
+      </div>
     </footer>
   </section>
 </template>
@@ -103,6 +116,8 @@ export default {
   },
   data() {
     return {
+      isLoading: false,
+      isSavingData: false,
       office: {},
       formErrors: [],
     };
@@ -124,7 +139,15 @@ export default {
   },
   computed: {
     formTitle() {
-      return this.office.id ? 'Edit location' : 'New location';
+      if (this.isLoading) {
+        return 'Loading data...';
+      }
+
+      if (this.office.id) {
+        return 'Edit location';
+      }
+
+      return 'New location';
     },
     hasError() {
       const formFieldsValidationState = Object.values(this.formErrors);
@@ -133,16 +156,27 @@ export default {
         formFieldState => formFieldState.hasError,
       );
     },
+    isDisabled() {
+      return this.isLoading || this.isSavingData;
+    },
+    isButtonDisabled() {
+      return this.isDisabled || this.hasError;
+    },
   },
   methods: {
     async loadOffice(officeId) {
+      this.isLoading = true;
       this.office = officeId ? await getOneOffice(officeId) : {};
+      this.isLoading = false;
     },
     async onSave() {
       console.log('onsave');
+      this.isSavingData = true;
       this.office.id
         ? await updateOffice(this.office)
         : await addOffice(this.office);
+
+      this.isSavingData = false;
 
       this.$router.push({ name: 'offices' });
     },

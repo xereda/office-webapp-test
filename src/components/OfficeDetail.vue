@@ -25,10 +25,12 @@
         class="flex items-center cursor-pointer text-red-300"
         @click="$emit('remove', id)"
       >
-        <div>
+        <div v-if="!isRemoving">
           <svg-icon class="w-7 h-7" icon="trash" />
         </div>
-        <div class="text-xs ml-2">DELETE</div>
+        <div class="text-xs ml-2">
+          {{ isRemoving ? 'Removing office... ' : 'DELETE' }}
+        </div>
       </div>
     </div>
   </div>
@@ -62,6 +64,10 @@ export default {
     phone: {
       type: String,
       default: '',
+    },
+    isRemoving: {
+      type: Boolean,
+      default: false,
     },
   },
   emits: ['edit', 'remove'],

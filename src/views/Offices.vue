@@ -1,35 +1,40 @@
 <template>
-  <notice-bar v-if="showNoticeBar" @close="onCloseNoticeBar" />
-  <section class="pt-28 p-10 sm:max-w-md mx-auto">
-    <page-title class="mb-16">Offices</page-title>
-    <main-button
-      v-if="showAddButton"
-      class="mb-6"
-      @click="onClickAddNewLocation"
-    >
-      Add New Location
-    </main-button>
-    <router-view />
-    <div v-for="office in filteredOffices" class="my-5" :key="office.id">
-      <card
-        :is-opened="isCardOpen(office.id)"
-        @click="onClickTitleCard(office.id, $event)"
+  <section>
+    <notice-bar v-if="showNoticeBar" @close="onCloseNoticeBar" />
+    <div class="pt-28 p-10 sm:max-w-md mx-auto">
+      <page-title class="mb-16">Offices</page-title>
+      <main-button
+        v-if="showAddButton"
+        class="mb-6"
+        @click="onClickAddNewLocation"
       >
-        <template v-slot:title>
-          <office-title :title="office.title" :address="office.address" />
-        </template>
-        <template v-slot:detail>
-          <office-detail
-            :id="office.id"
-            :full-name="office.fullName"
-            :job-position="office.jobPosition"
-            :email="office.email"
-            :phone="office.phone"
-            @edit="onEdit"
-            @remove="onRemove"
-          />
-        </template>
-      </card>
+        Add New Location
+      </main-button>
+      <router-view />
+      <placeholder v-bind="{ isLoading, noContent }">
+        <div v-for="office in filteredOffices" class="my-5" :key="office.id">
+          <card
+            :is-opened="isCardOpen(office.id)"
+            @click="onClickTitleCard(office.id, $event)"
+          >
+            <template v-slot:title>
+              <office-title :title="office.title" :address="office.address" />
+            </template>
+            <template v-slot:detail>
+              <office-detail
+                :id="office.id"
+                :full-name="office.fullName"
+                :job-position="office.jobPosition"
+                :email="office.email"
+                :phone="office.phone"
+                :is-removing="isRemoving"
+                @edit="onEdit"
+                @remove="onRemove"
+              />
+            </template>
+          </card>
+        </div>
+      </placeholder>
     </div>
   </section>
 </template>
@@ -42,6 +47,7 @@ import { getAllOffices, removeOffice } from '@/services/index.js';
 import NoticeBar from '@/components/NoticeBar.vue';
 import PageTitle from '@/components/PageTitle.vue';
 import MainButton from '@/components/MainButton.vue';
+import Placeholder from '@/components/Placeholder.vue';
 
 export default {
   name: 'Offices',
@@ -55,11 +61,14 @@ export default {
     OfficeTitle,
     PageTitle,
     MainButton,
+    Placeholder,
   },
   data() {
     return {
       idCardOpened: null,
       showNoticeBar: false,
+      isLoading: false,
+      isRemoving: false,
       offices: [],
     };
   },
@@ -81,10 +90,15 @@ export default {
     showAddButton() {
       return !this.isAddMode;
     },
+    noContent() {
+      return !this.offices?.length;
+    },
   },
   methods: {
     async loadOffices() {
+      this.isLoading = true;
       this.offices = await getAllOffices();
+      this.isLoading = false;
     },
     onClickTitleCard(cardIndex, isOpened) {
       console.log('onClickTitleCard', cardIndex, isOpened);
@@ -98,9 +112,13 @@ export default {
     },
     async onRemove(officeId) {
       console.log('onRemove', officeId);
+      this.isRemoving = true;
+
       await removeOffice(officeId);
       this.loadOffices();
+
       this.showNoticeBar = true;
+      this.isRemoving = false;
     },
     isCardOpen(officeId) {
       return this.idCardOpened === officeId;

@@ -1,5 +1,5 @@
 <template>
-  <section class="fixed w-full bg-white h-20 flex items-center">
+  <section class="fixed w-full bg-white h-20 flex items-center z-10">
     <div class="fixed w-full text-center flex items-center justify-center">
       <svg-icon class="w-7 h-7 mr-4 text-green-600" icon="check" />
       <div class="text-xs text-gray-600">
