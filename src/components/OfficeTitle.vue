@@ -1,5 +1,8 @@
 <template>
-  <p v-bind="{ title }" class="text-xl font-semibold leading-10 truncate w-64">
+  <p
+    v-bind="{ title }"
+    class="text-xl font-semibold leading-10 truncate sm:w-64"
+  >
     {{ title }}
   </p>
   <p class="font-light opacity-60">{{ address }}</p>
