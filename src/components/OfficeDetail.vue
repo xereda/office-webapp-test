@@ -1,12 +1,12 @@
 <template>
   <div class="text-gray-600 bg-white p-7 leading-9 font-light">
-    <strong class="text-xl font-semibold">
+    <p class="text-xl font-semibold truncate">
       {{ fullName }}
-    </strong>
-    <p>
+    </p>
+    <p class="truncate">
       {{ jobPosition }}
     </p>
-    <p class="text-dp-green">
+    <p class="text-dp-green truncate">
       {{ email }}
     </p>
     <p>

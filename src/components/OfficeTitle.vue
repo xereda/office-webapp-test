@@ -1,6 +1,5 @@
 <template>
-  <div ref="cardTitle" :style="`width: calc(${widthCard - 90}px)`">
-    {{ widthCard }}
+  <div :style="`width: calc(${widthCard - 90}px)`">
     <p v-bind="{ title }" class="text-xl font-semibold leading-10 truncate">
       {{ title }}
     </p>

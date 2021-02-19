@@ -3,7 +3,7 @@
     <transition name="fade">
       <notice-bar v-if="showNoticeBar" @close="onCloseNoticeBar" />
     </transition>
-    <div class="pt-28 pl-4 pr-4 sm:max-w-md mx-auto">
+    <div class="pt-28 pl-4 max-w-sm sm:max-w-md mx-auto">
       <page-title class="mb-16">Offices</page-title>
       <main-button
         v-if="showAddButton"
