@@ -1,30 +1,29 @@
-import { shallowMount } from '@vue/test-utils';
+import { mount } from '@vue/test-utils';
 import Card from '@/components/Card.vue';
 
 describe('Card.vue', () => {
-  const title = 'title text slot';
-  const content = 'content text slot';
+  const title = 'title';
+  const detail = 'detail';
+  const isOpened = true;
 
-  const wrapper = shallowMount(Card, {
-    props: {
-      isOpened: false,
+  const wrapper = mount(Card, {
+    propsData: {
+      isOpened,
     },
     slots: {
       title,
-      content,
+      detail,
     },
   });
 
-  it('should not render card content', () => {
-    expect(wrapper.text()).not.toMatch(content);
+  it('should render card with slots', () => {
+    expect(wrapper.text()).toMatch(title + detail);
   });
 
-  it('should render card content', async () => {
-    wrapper.vm.$emit('click', false);
+  it('should event trigger after button clicked', async () => {
+    await wrapper.find('section').trigger('click');
 
-    await wrapper.vm.$nextTick();
-    expect(wrapper.emitted().click[0]).toEqual([false]);
-
-    console.log(wrapper.html());
+    expect(wrapper.emitted().click).toBeTruthy();
+    expect(wrapper.emitted().click).toEqual([[isOpened]]);
   });
 });
