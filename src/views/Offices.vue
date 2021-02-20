@@ -112,16 +112,13 @@ export default {
       this.isLoading = false;
     },
     onToggleCard(cardIndex, isOpened) {
-      console.log('onToggleCard', cardIndex, isOpened);
       this.idCardOpened = isOpened ? null : cardIndex;
     },
     onEdit(officeId) {
-      console.log('onEdit', officeId);
       this.idCardOpened = null;
       this.$router.push({ name: 'edit', params: { officeId } });
     },
     async onRemove(officeId) {
-      console.log('onRemove', officeId);
       this.isRemoving = true;
 
       await removeOffice(officeId);
@@ -138,7 +135,6 @@ export default {
       this.$router.push({ name: 'add' });
     },
     onCloseNoticeBar() {
-      console.log('onCloseNoticeBar');
       this.isNoticeBarVisible = false;
     },
     showNoticeBar(message) {

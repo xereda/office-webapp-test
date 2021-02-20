@@ -125,15 +125,11 @@ export default {
   },
   created() {
     this.loadOffice(this.officeId);
-    console.log('created', this.officeId);
   },
   beforeRouteEnter(to, from, next) {
-    console.log('beforeRouteEnter');
-
     next(vm => (vm.office = {}));
   },
   beforeRouteUpdate({ params }, from, next) {
-    console.log('beforeRouteUpdate', params);
     this.loadOffice(params.officeId);
 
     next();
@@ -171,7 +167,6 @@ export default {
       this.isLoading = false;
     },
     async onSave() {
-      console.log('onsave');
       this.isSavingData = true;
       this.office.id
         ? await updateOffice(this.office)
@@ -188,8 +183,6 @@ export default {
       this.$router.push({ name: 'offices' });
     },
     onValidation(fieldStateError) {
-      console.log('onValidation', fieldStateError);
-
       this.formErrors = { ...this.formErrors, ...fieldStateError };
     },
   },

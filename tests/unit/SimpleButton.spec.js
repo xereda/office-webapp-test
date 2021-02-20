@@ -12,7 +12,6 @@ const factoryMount = props =>
 
 test('should render button', () => {
   const wrapper = factoryMount();
-  console.log(wrapper.html());
   expect(wrapper.find('button').text()).toMatch('label');
 });
 

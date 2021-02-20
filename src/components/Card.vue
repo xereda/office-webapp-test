@@ -45,7 +45,6 @@ export default {
   emits: ['click'],
   mounted() {
     this.$nextTick(() => {
-      console.log('card: ', this.$refs.card.offsetWidth);
       this.widthCard = this.$refs.card.offsetWidth;
     });
   },
