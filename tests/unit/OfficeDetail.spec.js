@@ -1,30 +1,50 @@
-import { shallowMount } from '@vue/test-utils';
+import { mount } from '@vue/test-utils';
 import OfficeDetail from '@/components/OfficeDetail.vue';
 
-describe('OfficeDetail.vue', () => {
-  const props = {
-    id: '999',
-    fullName: 'Full name',
-    jobPosition: 'Job Position',
-    email: 'email@email.com',
-    phone: '(999) 9999.9999',
-  };
+const props = {
+  id: '999',
+  fullName: 'Full name',
+  jobPosition: 'Job Position',
+  email: 'email@email.com',
+  phone: '(999) 9999.9999',
+};
 
-  const wrapper = shallowMount(OfficeDetail, {
-    props,
+const wrapper = mount(OfficeDetail, {
+  props,
+});
+
+test('should render props', () => {
+  Object.values(props).forEach(prop => {
+    expect(wrapper.text()).toMatch(prop);
   });
+});
 
-  it('should render props', () => {
-    expect(wrapper.text()).toMatch(props.id);
-    expect(wrapper.text()).toMatch(props.fullName);
-    expect(wrapper.text()).toMatch(props.jobPosition);
-    expect(wrapper.text()).toMatch(props.email);
-    expect(wrapper.text()).toMatch(props.phone);
-  });
+test('should render edit button', () => {
+  expect(
+    wrapper
+      .find('button')
+      .text()
+      .toUpperCase(),
+  ).toMatch('EDIT');
+});
 
-  // it('should event trigger after button clicked', async () => {
-  //   await wrapper.find('button').trigger('click');
+test('should render delete button', () => {
+  expect(
+    wrapper
+      .findAll('button')[1]
+      .text()
+      .toUpperCase(),
+  ).toMatch('DELETE');
+});
 
-  //   expect(wrapper.emitted().click).toBeTruthy();
-  // });
+test('should trigger event after edit button was clicked', async () => {
+  await wrapper.find('button').trigger('click');
+
+  expect(wrapper.emitted().edit[0]).toEqual([props.id]);
+});
+
+test('should trigger event after delete button was clicked', async () => {
+  await wrapper.findAll('button')[1].trigger('click');
+
+  expect(wrapper.emitted().remove[0]).toEqual([props.id]);
 });

@@ -97,7 +97,7 @@ export default {
   },
   computed: {
     isEmpty() {
-      return !this.value;
+      return !this.value?.trim();
     },
     interacted() {
       return this.imputed && this.blurred;
