@@ -11,7 +11,7 @@ describe('Offices App - integrated tests', () => {
     cy.contains('No content');
   });
 
-  it.only('edit a new location', () => {
+  it('edit a new location', () => {
     cy.task('service:addOffice');
     cy.visit('/');
 
