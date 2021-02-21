@@ -18,6 +18,7 @@ describe('Offices App - integrated tests', () => {
     cy.get('[data-test=card]').click();
     cy.contains('EDIT').click();
     cy.contains('Edit location');
+
     cy.get('#title')
       .clear()
       .type(E2E_KEY);
