@@ -1,49 +1,79 @@
-const apiUri = 'https://602bd1e6ef26b40017f14c0b.mockapi.io/api/v1/offices';
+import { v4 as uuid } from 'uuid';
 
-const fetchConfig = {
-  mode: 'cors',
-  headers: {
-    'Content-type': 'application/json; charset=UTF-8',
-  },
-};
+const API_URI = process.env.VUE_APP_API_BASE + process.env.VUE_APP_RESOURCE;
+const API_URI_E2E =
+  process.env.VUE_APP_API_BASE + process.env.VUE_APP_RESOURCE_E2E;
 
-export const getAllOffices = async () => {
-  const response = await fetch(apiUri, fetchConfig);
+const defineOptions = () => ({
+  APIResource: window.Cypress ? API_URI_E2E : API_URI,
+});
 
-  return response.json();
-};
+export function serviceFactory(options) {
+  const fetchConfig = {
+    mode: 'cors',
+    headers: {
+      'Content-type': 'application/json; charset=UTF-8',
+    },
+  };
 
-export const getOneOffice = async officeId => {
-  const response = await fetch(`${apiUri}/${officeId}`, fetchConfig);
+  const serviceURI = options.APIResource;
 
-  return response.json();
-};
+  const getAllOffices = async () => {
+    const response = await fetch(serviceURI, fetchConfig);
 
-export const removeOffice = async officeId => {
-  const response = await fetch(`${apiUri}/${officeId}`, {
-    ...fetchConfig,
-    method: 'DELETE',
-  });
+    return response.json();
+  };
 
-  return response.json();
-};
+  const getOneOffice = async officeId => {
+    const response = await fetch(`${serviceURI}/${officeId}`, fetchConfig);
 
-export const updateOffice = async office => {
-  const response = await fetch(`${apiUri}/${office.id}`, {
-    ...fetchConfig,
-    method: 'PUT',
-    body: JSON.stringify(office),
-  });
+    return response.json();
+  };
 
-  return response.json();
-};
+  const removeOffice = async officeId => {
+    const response = await fetch(`${serviceURI}/${officeId}`, {
+      ...fetchConfig,
+      method: 'DELETE',
+    });
 
-export const addOffice = async office => {
-  const response = await fetch(`${apiUri}`, {
-    ...fetchConfig,
-    method: 'POST',
-    body: JSON.stringify(office),
-  });
+    return response.json();
+  };
 
-  return response.json();
-};
+  const updateOffice = async office => {
+    const response = await fetch(`${serviceURI}/${office.id}`, {
+      ...fetchConfig,
+      method: 'PUT',
+      body: JSON.stringify(office),
+    });
+
+    return response.json();
+  };
+
+  const addOffice = async office => {
+    const response = await fetch(`${serviceURI}`, {
+      ...fetchConfig,
+      method: 'POST',
+      body: JSON.stringify({ ...office, index: uuid() }),
+    });
+
+    return response.json();
+  };
+
+  return {
+    getAllOffices,
+    getOneOffice,
+    removeOffice,
+    updateOffice,
+    addOffice,
+  };
+}
+
+const {
+  getAllOffices,
+  getOneOffice,
+  removeOffice,
+  updateOffice,
+  addOffice,
+} = serviceFactory(defineOptions());
+
+export { getAllOffices, getOneOffice, removeOffice, updateOffice, addOffice };

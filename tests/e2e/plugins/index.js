@@ -1,25 +1,65 @@
-/* eslint-disable arrow-body-style */
-// https://docs.cypress.io/guides/guides/plugins-guide.html
+const fetch = require('node-fetch');
 
-// if you need a custom webpack configuration you can uncomment the following import
-// and then use the `file:preprocessor` event
-// as explained in the cypress docs
-// https://docs.cypress.io/api/plugins/preprocessors-api.html#Examples
+const API_URI_E2E =
+  process.env.VUE_APP_API_BASE + process.env.VUE_APP_RESOURCE_E2E;
 
-// /* eslint-disable import/no-extraneous-dependencies, global-require */
-// const webpack = require('@cypress/webpack-preprocessor')
+const fetchConfig = {
+  mode: 'cors',
+  headers: {
+    'Content-type': 'application/json; charset=UTF-8',
+  },
+};
+
+const getAllOffices = async () => {
+  const response = await fetch(API_URI_E2E, fetchConfig);
+
+  return response.json();
+};
+
+const removeOffice = async officeId => {
+  const response = await fetch(`${API_URI_E2E}/${officeId}`, {
+    ...fetchConfig,
+    method: 'DELETE',
+  });
+
+  return response.json();
+};
+
+const addOffice = async office => {
+  const response = await fetch(`${API_URI_E2E}`, {
+    ...fetchConfig,
+    method: 'POST',
+    body: JSON.stringify(office),
+  });
+
+  return response.json();
+};
 
 module.exports = (on, config) => {
-  // on('file:preprocessor', webpack({
-  //  webpackOptions: require('@vue/cli-service/webpack.config'),
-  //  watchOptions: {}
-  // }))
+  on('task', {
+    async 'service:removeAllOffices'() {
+      const offices = await getAllOffices();
+
+      await Promise.all(
+        offices.map(async office => {
+          await removeOffice(office.id);
+        }),
+      );
+
+      return offices;
+    },
+    async 'service:addOffice'() {
+      const office = await addOffice();
+
+      return office;
+    },
+  });
 
   return Object.assign({}, config, {
-    fixturesFolder: "tests/e2e/fixtures",
-    integrationFolder: "tests/e2e/specs",
-    screenshotsFolder: "tests/e2e/screenshots",
-    videosFolder: "tests/e2e/videos",
-    supportFile: "tests/e2e/support/index.js"
+    fixturesFolder: 'tests/e2e/fixtures',
+    integrationFolder: 'tests/e2e/specs',
+    screenshotsFolder: 'tests/e2e/screenshots',
+    videosFolder: 'tests/e2e/videos',
+    supportFile: 'tests/e2e/support/index.js',
   });
 };

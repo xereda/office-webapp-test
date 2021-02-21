@@ -1,6 +1,7 @@
 <template>
   <section
     ref="card"
+    data-test="card"
     class="
       w-full flex justify-between items-center px-7 py-6 shadow-lg rounded-lg bg-white transition-all
       duration-500 cursor-pointer"

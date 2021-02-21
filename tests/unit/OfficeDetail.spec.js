@@ -13,10 +13,13 @@ const wrapper = mount(OfficeDetail, {
   props,
 });
 
+const renderedText = wrapper.text();
+
 test('should render props', () => {
-  Object.values(props).forEach(prop => {
-    expect(wrapper.text()).toMatch(prop);
-  });
+  expect(renderedText).toMatch(props.fullName);
+  expect(renderedText).toMatch(props.jobPosition);
+  expect(renderedText).toMatch(props.email);
+  expect(renderedText).toMatch(props.phone);
 });
 
 test('should render edit button', () => {
