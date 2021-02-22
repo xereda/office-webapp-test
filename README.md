@@ -32,18 +32,30 @@ I haven't had time available yet, but I will try to solve the limit rate problem
 ## For to run this application in your local environment:
 
 - [ ] Clone this repository and access the repository's local folder:
-      `git clone [https://github.com/xereda/office-webapp-test](https://github.com/xereda/office-webapp-test)`
-      `cd office-webapp-test`
+
+      git clone [https://github.com/xereda/office-webapp-test](https://github.com/xereda/office-webapp-test)
+
+      cd office-webapp-test
+
 - [ ] Install the dependencies:
-      `npm install`
+
+       npm install
+
 - [ ] Run the application
-      `npm run serve`
+
+       npm run serve
+
 - [ ] Accessing the application with your browser:
-      `http://localhost:8080/`
+
+       http://localhost:8080/
+
 - [ ] Perform the unit tests:
-      `npm run test:unit`
+
+       npm run test:unit
+
 - [ ] Perform the E2E tests:
-      `npm run test:e2e`
+
+       npm run test:e2e
 
 > Reminder: the repository is integrated with the Vercel platform, so to access a demo of the application, just access the following url:
 
