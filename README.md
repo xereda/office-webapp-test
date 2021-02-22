@@ -15,7 +15,7 @@ https://office-webapp-test.vercel.app/
 
 Until I started developing this example app, I hadn't used Tailwind yet. Understanding it took me a long time. Even though its polluted the template a little more, my final assessment of Tailwind is very positive. After mastering the main CSS helper classes, he becomes quite productive. It is an excellent ally in the development of interfaces. I introduced it to our UX Designers. Possibly, TailwindCSS, could be an excellent ally of a new design system.
 
-Possibly, TailwindCSS, could be an excellent ally of a new design system.
+> _Possibly, TailwindCSS, could be an excellent ally of a new design system._
 
 ## Tests
 
