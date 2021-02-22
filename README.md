@@ -33,7 +33,7 @@ I haven't had time available yet, but I will try to solve the limit rate problem
 
 - [ ] Clone this repository and access the repository's local folder:
 
-      git clone [https://github.com/xereda/office-webapp-test](https://github.com/xereda/office-webapp-test)
+      git clone https://github.com/xereda/office-webapp-test
 
       cd office-webapp-test
 
@@ -41,7 +41,7 @@ I haven't had time available yet, but I will try to solve the limit rate problem
 
        npm install
 
-- [ ] Run the application
+- [ ] Run the application:
 
        npm run serve
 
