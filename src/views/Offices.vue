@@ -59,6 +59,8 @@ import PageTitle from '@/components/PageTitle.vue';
 import MainButton from '@/components/MainButton.vue';
 import Placeholder from '@/components/Placeholder.vue';
 
+console.log(process.env);
+
 export default {
   name: 'Offices',
   props: {
