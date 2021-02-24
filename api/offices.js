@@ -1,5 +1,5 @@
-const services = require('./services.js');
-const database = require('./database.js');
+const services = require('./services');
+const database = require('./database');
 const connect = database();
 
 const server = async (req, res) => {
