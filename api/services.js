@@ -1,8 +1,8 @@
-const RESET_MOCK = require('./mock');
-const GET = require('./get');
-const DELETE = require('./delete');
-const PUT = require('./put');
-const POST = require('./post');
+import RESET_MOCK from './mock';
+import GET from './get';
+import DELETE from './delete';
+import PUT from './put';
+import POST from './post';
 
 const services = {
   GET,

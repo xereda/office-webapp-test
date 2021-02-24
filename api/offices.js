@@ -1,5 +1,6 @@
-const services = require('./services');
-const database = require('./database');
+import services from './services';
+import database from './database';
+
 const connect = database();
 
 const server = async (req, res) => {
