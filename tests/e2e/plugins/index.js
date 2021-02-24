@@ -1,7 +1,11 @@
 const fetch = require('node-fetch');
 
-const API_URI = `${process.env.VERCEL_URL ??
-  'http://localhost:3000'}/api/offices`;
+const domainApi =
+  process.env.NODE_ENV === 'production'
+    ? `https://${process.env.VUE_APP_VERCEL_URL}`
+    : 'http://localhost:3000';
+
+const fullUrlApi = `${domainApi}/api/offices`;
 
 const fetchConfig = {
   mode: 'cors',
@@ -12,7 +16,7 @@ const fetchConfig = {
 };
 
 const removeAllOffices = async () => {
-  const response = await fetch(`${API_URI}?removeAllOffices=true`, {
+  const response = await fetch(`${fullUrlApi}?removeAllOffices=true`, {
     ...fetchConfig,
     method: 'DELETE',
   });
@@ -21,7 +25,7 @@ const removeAllOffices = async () => {
 };
 
 const addOffice = async () => {
-  const response = await fetch(`${API_URI}?resetMock=true&mockLength=1`, {
+  const response = await fetch(`${fullUrlApi}?resetMock=true&mockLength=1`, {
     ...fetchConfig,
     method: 'POST',
   });

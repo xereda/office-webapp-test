@@ -1,13 +1,17 @@
 import { v4 as uuid } from 'uuid';
 
-console.log('process.env: ', process.env);
+const defineOptions = () => {
+  const domainApi =
+    process.env.NODE_ENV === 'production'
+      ? `https://${process.env.VUE_APP_VERCEL_URL}`
+      : 'http://localhost:3000';
 
-const API_URI = `${process.env.VERCEL_URL ??
-  'http://localhost:3000'}/api/offices`;
+  const fullUrlApi = `${domainApi}/api/offices`;
 
-const defineOptions = () => ({
-  APIResource: API_URI,
-});
+  return {
+    APIResource: fullUrlApi,
+  };
+};
 
 export function serviceFactory(options) {
   const fetchConfig = {
@@ -21,6 +25,7 @@ export function serviceFactory(options) {
   const serviceURI = options.APIResource;
 
   const getAllOffices = async () => {
+    console.log('process.env: ', process.env);
     const response = await fetch(`${serviceURI}`, fetchConfig);
 
     return response.json();
