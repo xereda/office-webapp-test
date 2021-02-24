@@ -10,8 +10,6 @@ const server = async (req, res) => {
 
   const E2ERunner = req.headers['from-tests-e2e'] === 'true';
 
-  console.log(E2ERunner, typeof req.headers['from-tests-e2e']);
-
   const dataBaseURI = E2ERunner
     ? process.env.VUE_APP_MONGODB_URI_E2E
     : process.env.VUE_APP_MONGODB_URI;
