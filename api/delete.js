@@ -1,13 +1,19 @@
 module.exports = async (req, res, collection) => {
-  try {
-    const operationReturn = await collection.deleteOne({
-      index: req.query?.index,
-    });
+  let collectionOperation;
 
-    operationReturn?.deletedCount
-      ? res.status(204).json()
-      : res.status(400).json();
+  try {
+    if (req.query?.removeAllOffices) {
+      collectionOperation = await collection.deleteMany({});
+    } else {
+      collectionOperation = await collection.deleteOne({
+        index: req.query?.index,
+      });
+    }
   } catch (error) {
-    res.status(400).json({ error });
+    res.status(500).json({ error });
   }
+
+  collectionOperation?.result?.ok
+    ? res.status(200).json({})
+    : res.status(404).json({});
 };

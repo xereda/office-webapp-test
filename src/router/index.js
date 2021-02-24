@@ -10,7 +10,7 @@ const routes = [
     props: true,
     children: [
       {
-        path: 'edit/:officeId',
+        path: 'edit/:officeIndex',
         name: 'edit',
         component: OfficeForm,
         props: true,

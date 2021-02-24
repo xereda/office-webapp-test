@@ -1,23 +1,18 @@
 const fetch = require('node-fetch');
 
-const API_URI_E2E =
-  process.env.VUE_APP_API_BASE + process.env.VUE_APP_RESOURCE_E2E;
+const API_URI = `${process.env.VERCEL_URL ??
+  'http://localhost:3000'}/api/offices`;
 
 const fetchConfig = {
   mode: 'cors',
   headers: {
     'Content-type': 'application/json; charset=UTF-8',
+    'from-tests-e2e': 'true',
   },
 };
 
-const getAllOffices = async () => {
-  const response = await fetch(API_URI_E2E, fetchConfig);
-
-  return response.json();
-};
-
-const removeOffice = async officeId => {
-  const response = await fetch(`${API_URI_E2E}/${officeId}`, {
+const removeAllOffices = async () => {
+  const response = await fetch(`${API_URI}?removeAllOffices=true`, {
     ...fetchConfig,
     method: 'DELETE',
   });
@@ -25,11 +20,10 @@ const removeOffice = async officeId => {
   return response.json();
 };
 
-const addOffice = async office => {
-  const response = await fetch(`${API_URI_E2E}`, {
+const addOffice = async () => {
+  const response = await fetch(`${API_URI}?resetMock=true&mockLength=1`, {
     ...fetchConfig,
     method: 'POST',
-    body: JSON.stringify(office),
   });
 
   return response.json();
@@ -38,15 +32,9 @@ const addOffice = async office => {
 module.exports = (on, config) => {
   on('task', {
     async 'service:removeAllOffices'() {
-      const offices = await getAllOffices();
+      const result = await removeAllOffices();
 
-      await Promise.all(
-        offices.map(async office => {
-          await removeOffice(office.id);
-        }),
-      );
-
-      return offices;
+      return result;
     },
     async 'service:addOffice'() {
       const office = await addOffice();

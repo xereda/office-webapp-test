@@ -1,14 +1,12 @@
 const E2E_KEY = 'E2E';
 
 describe('Offices App - integrated tests', () => {
-  beforeEach(() => {
-    cy.task('service:removeAllOffices');
-  });
-
   it('visits the app root url', () => {
+    cy.task('service:removeAllOffices');
     cy.visit('/');
     cy.contains('Offices');
-    cy.contains('No content');
+    cy.contains('#cypress-e2e-runner').should('be.visible');
+    cy.contains('No content').should('be.visible');
   });
 
   it('edit a new location', () => {
@@ -36,8 +34,8 @@ describe('Offices App - integrated tests', () => {
     cy.contains('DELETE').click();
 
     cy.url().should('not.include', '/add');
-    cy.contains('No content').should('be.visible');
     cy.contains('LOCATION HAS BEEN REMOVED').should('be.visible');
+    cy.contains('No content').should('be.visible');
   });
 
   it('clicking "add new location" navigates to a new route', () => {

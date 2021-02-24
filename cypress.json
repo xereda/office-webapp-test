@@ -1,4 +1,5 @@
 {
   "pluginsFile": "tests/e2e/plugins/index.js",
-  "projectId": "gsg7xj"
+  "projectId": "gsg7xj",
+  "defaultCommandTimeout": 10000
 }

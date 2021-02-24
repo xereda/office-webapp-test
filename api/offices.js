@@ -1,15 +1,29 @@
 const services = require('./services.js');
 const database = require('./database.js');
-
 const connect = database();
 
-module.exports = async (req, res) => {
-  const db = await connect.connectToDatabase(process.env.MONGODB_URI);
+const server = async (req, res) => {
+  if (req.method === 'OPTIONS') {
+    res.status(200).end();
+    return;
+  }
+
+  const E2ERunner = req.headers['from-tests-e2e'] === 'true';
+
+  console.log(E2ERunner, typeof req.headers['from-tests-e2e']);
+
+  const dataBaseURI = E2ERunner
+    ? process.env.VUE_APP_MONGODB_URI_E2E
+    : process.env.VUE_APP_MONGODB_URI;
+
+  const db = await connect.connectToDatabase(dataBaseURI);
   const collection = await db.collection('offices');
 
   const method = req.query?.resetMock ? 'RESET_MOCK' : req.method;
 
   services?.[method]
     ? await services?.[method](req, res, collection)
-    : req.status(400).json({ error: 'Unknown http method.' });
+    : res.status(400).json({ error: 'Unknown http method.' });
 };
+
+module.exports = server;

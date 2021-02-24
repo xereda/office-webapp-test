@@ -13,13 +13,13 @@
       {{ phone }}
     </p>
     <div class="flex justify-between items-center border-t pt-4 mt-4">
-      <simple-button icon="pencil" label="EDIT" @click="$emit('edit', id)" />
+      <simple-button icon="pencil" label="EDIT" @click="$emit('edit', index)" />
       <simple-button
         icon="trash"
         label="DELETE"
         class="text-red-300"
         :is-loading="isRemoving"
-        @click="$emit('remove', id)"
+        @click="$emit('remove', index)"
       />
     </div>
   </div>
@@ -34,7 +34,7 @@ export default {
     SimpleButton,
   },
   props: {
-    id: {
+    index: {
       type: String,
       required: true,
     },

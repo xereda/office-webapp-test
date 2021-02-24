@@ -1,4 +1,5 @@
 <template>
+  <p class="fixed" v-if="E2ERunner">#cypress-e2e-runner</p>
   <section>
     <transition name="fade">
       <notice-bar
@@ -18,10 +19,10 @@
       </main-button>
       <router-view />
       <placeholder v-bind="{ isLoading, noContent }">
-        <div v-for="office in filteredOffices" class="my-5" :key="office.id">
+        <div v-for="office in filteredOffices" class="my-5" :key="office.index">
           <card
-            :is-opened="isCardOpen(office.id)"
-            @click="onToggleCard(office.id, $event)"
+            :is-opened="isCardOpen(office.index)"
+            @click="onToggleCard(office.index, $event)"
           >
             <template v-slot:title="slotTitleProps">
               <office-title
@@ -32,7 +33,7 @@
             </template>
             <template v-slot:detail>
               <office-detail
-                :id="office.id"
+                :index="office.index"
                 :full-name="office.fullName"
                 :job-position="office.jobPosition"
                 :email="office.email"
@@ -59,12 +60,10 @@ import PageTitle from '@/components/PageTitle.vue';
 import MainButton from '@/components/MainButton.vue';
 import Placeholder from '@/components/Placeholder.vue';
 
-console.log(process.env);
-
 export default {
   name: 'Offices',
   props: {
-    officeId: String,
+    officeIndex: String,
   },
   components: {
     Card,
@@ -77,6 +76,7 @@ export default {
   },
   data() {
     return {
+      E2ERunner: false,
       idCardOpened: null,
       isNoticeBarVisible: false,
       noticeBarMessage: '',
@@ -93,9 +93,16 @@ export default {
 
     next();
   },
+  mounted() {
+    this.$nextTick(() => {
+      window.Cypress && (this.E2ERunner = true);
+    });
+  },
   computed: {
     filteredOffices() {
-      return this?.offices.filter(office => office.id !== this.officeId) ?? [];
+      return (
+        this.offices.filter(office => office._id !== this.officeIndex) ?? []
+      );
     },
     isAddMode() {
       return this.$route.name === 'add';
@@ -116,21 +123,21 @@ export default {
     onToggleCard(cardIndex, isOpened) {
       this.idCardOpened = isOpened ? null : cardIndex;
     },
-    onEdit(officeId) {
+    onEdit(officeIndex) {
       this.idCardOpened = null;
-      this.$router.push({ name: 'edit', params: { officeId } });
+      this.$router.push({ name: 'edit', params: { officeIndex } });
     },
-    async onRemove(officeId) {
+    async onRemove(officeIndex) {
       this.isRemoving = true;
 
-      await removeOffice(officeId);
+      await removeOffice(officeIndex);
       this.$router.push({ name: 'offices' });
       this.loadOffices();
       this.showNoticeBar('LOCATION HAS BEEN REMOVED.');
       this.isRemoving = false;
     },
-    isCardOpen(officeId) {
-      return this.idCardOpened === officeId;
+    isCardOpen(officeIndex) {
+      return this.idCardOpened === officeIndex;
     },
     onClickAddNewLocation() {
       this.idCardOpened = null;

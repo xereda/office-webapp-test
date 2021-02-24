@@ -13,6 +13,7 @@
   "dependencies": {
     "@tailwindcss/postcss7-compat": "^2.0.3",
     "autoprefixer": "^9.8.6",
+    "axios": "^0.21.1",
     "faker": "^5.4.0",
     "mongodb": "^3.6.4",
     "node-fetch": "^2.6.1",

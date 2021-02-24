@@ -109,7 +109,7 @@ import SvgIcon from '@/components/SvgIcon.vue';
 export default {
   name: 'OfficeForm',
   props: {
-    officeId: String,
+    officeIndex: String,
   },
   components: {
     FieldInput,
@@ -124,13 +124,13 @@ export default {
     };
   },
   created() {
-    this.loadOffice(this.officeId);
+    this.loadOffice(this.officeIndex);
   },
   beforeRouteEnter(to, from, next) {
     next(vm => (vm.office = {}));
   },
   beforeRouteUpdate({ params }, from, next) {
-    this.loadOffice(params.officeId);
+    this.loadOffice(params.officeIndex);
 
     next();
   },
@@ -140,7 +140,7 @@ export default {
         return 'Loading data...';
       }
 
-      if (this.office.id) {
+      if (this.office.index) {
         return 'Edit location';
       }
 
@@ -161,14 +161,14 @@ export default {
     },
   },
   methods: {
-    async loadOffice(officeId) {
+    async loadOffice(officeIndex) {
       this.isLoading = true;
-      this.office = officeId ? await getOneOffice(officeId) : {};
+      this.office = officeIndex ? await getOneOffice(officeIndex) : {};
       this.isLoading = false;
     },
     async onSave() {
       this.isSavingData = true;
-      this.office.id
+      this.office.index
         ? await updateOffice(this.office)
         : await addOffice(this.office);
 

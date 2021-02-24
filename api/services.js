@@ -1,17 +1,15 @@
 const RESET_MOCK = require('./mock.js');
 const GET = require('./get.js');
 const DELETE = require('./delete.js');
-const PATCH = require('./patch.js');
+const PUT = require('./put.js');
 const POST = require('./post.js');
 
 const services = {
   GET,
   DELETE,
-  PATCH,
+  PUT,
   POST,
   RESET_MOCK,
 };
 
-module.exports = {
-  ...services,
-};
+module.exports = services;

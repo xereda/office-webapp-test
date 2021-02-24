@@ -1,7 +1,19 @@
 {
-  "name": "my-mongodb-api",
   "version": 2,
   "env": {
-    "MONGODB_URI": "@my-mongodb-uri"
-  }
+    "VERCEL_URL": "VERCEL_URL",
+    "VUE_APP_MONGODB_URI": "@mongodb-uri-brasil",
+    "VUE_APP_MONGODB_URI_E2E": "@mongodb-uri-e2e-brasil"
+  },
+  "headers": [
+    {
+      "source": "/api/(.*)",
+      "headers": [
+        { "key": "Access-Control-Allow-Credentials", "value": "true" },
+        { "key": "Access-Control-Allow-Origin", "value": "*" },
+        { "key": "Access-Control-Allow-Methods", "value": "GET,OPTIONS,PATCH,DELETE,POST,PUT" },
+        { "key": "Access-Control-Allow-Headers", "value": "X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version, from-tests-e2e" }
+      ]
+    }
+  ]
 }

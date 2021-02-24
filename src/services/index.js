@@ -1,11 +1,10 @@
 import { v4 as uuid } from 'uuid';
 
-const API_URI = process.env.VUE_APP_API_BASE + process.env.VUE_APP_RESOURCE;
-const API_URI_E2E =
-  process.env.VUE_APP_API_BASE + process.env.VUE_APP_RESOURCE_E2E;
+const API_URI = `${process.env.VERCEL_URL ??
+  'http://localhost:3000'}/api/offices`;
 
 const defineOptions = () => ({
-  APIResource: window.Cypress ? API_URI_E2E : API_URI,
+  APIResource: API_URI,
 });
 
 export function serviceFactory(options) {
@@ -13,25 +12,29 @@ export function serviceFactory(options) {
     mode: 'cors',
     headers: {
       'Content-type': 'application/json; charset=UTF-8',
+      'from-tests-e2e': window.Cypress ? 'true' : 'false',
     },
   };
 
   const serviceURI = options.APIResource;
 
   const getAllOffices = async () => {
-    const response = await fetch(serviceURI, fetchConfig);
+    const response = await fetch(`${serviceURI}`, fetchConfig);
 
     return response.json();
   };
 
-  const getOneOffice = async officeId => {
-    const response = await fetch(`${serviceURI}/${officeId}`, fetchConfig);
+  const getOneOffice = async officeIndex => {
+    const response = await fetch(
+      `${serviceURI}?index=${officeIndex}`,
+      fetchConfig,
+    );
 
     return response.json();
   };
 
-  const removeOffice = async officeId => {
-    const response = await fetch(`${serviceURI}/${officeId}`, {
+  const removeOffice = async officeIndex => {
+    const response = await fetch(`${serviceURI}?index=${officeIndex}`, {
       ...fetchConfig,
       method: 'DELETE',
     });
@@ -40,10 +43,10 @@ export function serviceFactory(options) {
   };
 
   const updateOffice = async office => {
-    const response = await fetch(`${serviceURI}/${office.id}`, {
+    const response = await fetch(`${serviceURI}?index=${office.index}`, {
       ...fetchConfig,
       method: 'PUT',
-      body: JSON.stringify(office),
+      body: JSON.stringify({ ...office, _id: undefined }),
     });
 
     return response.json();

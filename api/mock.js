@@ -4,7 +4,7 @@ module.exports = async (req, res, collection) => {
   await collection.deleteMany({});
   const ISODateCurrent = new Date().toISOString();
 
-  const offices = [...Array(5)].map(() => ({
+  const offices = [...Array(req.query?.mockLength ?? 5)].map(() => ({
     index: faker.random.uuid(),
     title: faker.company.companyName(),
     address: faker.address.streetName(),
@@ -22,5 +22,5 @@ module.exports = async (req, res, collection) => {
     res.status(400).json({ error });
   }
 
-  res.status(204).json();
+  res.status(200).json({});
 };
