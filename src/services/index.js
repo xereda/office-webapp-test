@@ -1,5 +1,7 @@
 import { v4 as uuid } from 'uuid';
 
+console.log('process.env: ', process.env);
+
 const API_URI = `${process.env.VERCEL_URL ??
   'http://localhost:3000'}/api/offices`;
 
