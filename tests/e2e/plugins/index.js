@@ -6,7 +6,7 @@ const fetchConfig = {
   mode: 'cors',
   headers: {
     'Content-type': 'application/json; charset=UTF-8',
-    'from-tests-e2e': 'true',
+    'spa-user-session': 'e2e',
   },
 };
 

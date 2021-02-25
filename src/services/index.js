@@ -13,7 +13,7 @@ export function serviceFactory(options) {
     mode: 'cors',
     headers: {
       'Content-type': 'application/json; charset=UTF-8',
-      'from-tests-e2e': window.Cypress ? 'true' : 'false',
+      'spa-user-session': window.Cypress ? 'e2e' : 'user',
     },
   };
 
