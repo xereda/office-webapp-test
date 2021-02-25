@@ -21,13 +21,9 @@ Until I started developing this example app, I hadn't used Tailwind yet. Underst
 
 I did a test coverage considering unit and end-to-end tests. For the generic components, I used the unit tests and for the main user flows, I adopted E2E, with the excellent Cypress tool. The tests done with Cypress guarantee the functioning of the main user flows, such as listing, adding, editing, and deleting an office. It also tests the form's validation dynamics.
 
-According to Cypress best practices, the ideal is that E2E tests have access to a database that is distinct and isolated from other environments. This application has this important feature. The data handled by the tests are generated at the beginning and removed at the end of the testing session. The data handled by the tests are cleaned and generated at the beginning of each testing session. In this application, Cypress has access to a specific resource for testing, in the mocked backend service ([mockapi.io](http://mockapi.io/)).
+According to Cypress best practices, the ideal is that E2E tests have access to a database that is distinct and isolated from other environments. This application has this important feature. The data handled by the tests are generated at the beginning and removed at the end of the testing session. The data handled by the tests are cleaned and generated each testing session.
 
 I believe that Cypress today is one of the main ways of automating testing a web application. I am your evangelist in the current company.
-
-Consideration: after having finished all the tests, I noticed that the [mockapi.io](http://mockapi.io/) service has a limit rate restriction when I went running all the consolidated tests. I didn't realize this during development, because the test is written individually, without depending on others. For an individual test, the limit rate does not occur.
-
-I haven't had time available yet, but I will try to solve the limit rate problem with [mockapi.io](http://mockapi.io/), considering its own backend service, or any other service that does not have this limitation.
 
 ## For to run this application in your local environment:
 
