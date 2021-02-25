@@ -12,5 +12,9 @@ jobs:
         uses: cypress-io/github-action@v2
         env:
           VUE_APP_API_URL: https://office-server.vercel.app/api/offices
+          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           config: baseUrl=https://office-webapp-test.vercel.app
+          browser: chrome
+          record: true
