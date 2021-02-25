@@ -1,7 +1,7 @@
 import { v4 as uuid } from 'uuid';
 
 const defineOptions = () => {
-  const urlApi = `${process.env.VUE_APP_VERCEL_URL}/api/offices`;
+  const urlApi = process.env.VUE_APP_API_URL;
 
   return {
     APIResource: urlApi,

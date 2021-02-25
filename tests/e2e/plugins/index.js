@@ -1,6 +1,6 @@
 const fetch = require('node-fetch');
 
-const urlApi = `${process.env.VUE_APP_VERCEL_URL}/api/offices`;
+const urlApi = process.env.VUE_APP_API_URL;
 
 const fetchConfig = {
   mode: 'cors',
