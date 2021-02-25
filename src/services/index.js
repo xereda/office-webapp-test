@@ -44,20 +44,25 @@ export function serviceFactory(options) {
   };
 
   const updateOffice = async office => {
+    const updatedAt = new Date().toISOString();
+
     const response = await fetch(`${serviceURI}?index=${office.index}`, {
       ...fetchConfig,
       method: 'PUT',
-      body: JSON.stringify({ ...office, _id: undefined }),
+      body: JSON.stringify({ ...office, _id: undefined, updatedAt }),
     });
 
     return response.json();
   };
 
   const addOffice = async office => {
+    const createdAt = new Date().toISOString();
+    const updatedAt = createdAt;
+
     const response = await fetch(`${serviceURI}`, {
       ...fetchConfig,
       method: 'POST',
-      body: JSON.stringify({ ...office, index: uuid() }),
+      body: JSON.stringify({ ...office, index: uuid(), createdAt, updatedAt }),
     });
 
     return response.json();
