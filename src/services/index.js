@@ -20,8 +20,6 @@ export function serviceFactory(options) {
   const serviceURI = options.APIResource;
 
   const getAllOffices = async () => {
-    console.log('getAllOffices', process.env, serviceURI);
-
     const response = await fetch(`${serviceURI}`, fetchConfig);
 
     return response.json();
