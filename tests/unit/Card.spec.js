@@ -16,7 +16,7 @@ const wrapper = mount(Card, {
 });
 
 test('should render card with slots', () => {
-  expect(wrapper.text()).toMatch(title + detail);
+  expect(wrapper.text()).toMatch(title + detail + 'xxxxxx');
 });
 
 test('should event trigger after button clicked', async () => {
