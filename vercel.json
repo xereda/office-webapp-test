@@ -1,6 +1,7 @@
 {
   "version": 2,
   "env": {
+    "VUE_APP_VERCEL_URL": "VERCEL_URL",
     "VUE_APP_MONGODB_URI": "@mongodb-uri-brasil",
     "VUE_APP_MONGODB_URI_E2E": "@mongodb-uri-e2e-brasil"
   },
