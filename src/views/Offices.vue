@@ -9,7 +9,7 @@
       />
     </transition>
     <div class="pt-28 pl-4 max-w-sm sm:max-w-md mx-auto">
-      <page-title class="mb-16">Offices</page-title>
+      <page-title class="mb-16">Offices - test</page-title>
       <main-button
         v-if="showAddButton"
         class="mb-6"
