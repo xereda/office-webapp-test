@@ -6,7 +6,7 @@
 
 Offices has unit and end-to-end testing coverage. Through Vercel's architecture, it has automatic deployment with each update of the main branch of the git repository.
 
-For data persistence, the application integrates with a mock service, the [mockapi.io](http://mockapi.io/).
+Although not a requirement, for data persistence, the application integrates with Vercel Serverless Functions.
 
 Demo application:
 https://office-webapp-test.vercel.app/
@@ -22,6 +22,8 @@ Until I started developing this example app, I hadn't used Tailwind yet. Underst
 I did a test coverage considering unit and end-to-end tests. For the generic components, I used the unit tests and for the main user flows, I adopted E2E, with the excellent Cypress tool. The tests done with Cypress guarantee the functioning of the main user flows, such as listing, adding, editing, and deleting an office. It also tests the form's validation dynamics.
 
 According to Cypress best practices, the ideal is that E2E tests have access to a database that is distinct and isolated from other environments. This application has this important feature. The data handled by the tests are generated at the beginning and removed at the end of the testing session. The data handled by the tests are cleaned and generated each testing session.
+
+Both the tests, like unit tests, and E2E tests, are performed on a Github Actions pipeline. E2E tests also have a plus. The test videos are uploaded to the Cypress Dashboard.
 
 I believe that Cypress today is one of the main ways of automating testing a web application. I am your evangelist in the current company.
 
